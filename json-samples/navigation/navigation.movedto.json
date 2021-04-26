@@ -1,0 +1,134 @@
+{
+    /* ID */
+    "id" : "7e20a3ff-b683-4e01-bafc-2b4acb5f97a7",                              // Recommended
+    /* Actor - When the Actor objectType is Agent */
+    "actor" : {                                                                 // Required
+        "objectType": "Agent",                                                  // Required
+        "name": {                                                               // Optional
+            "ko-KR": "김하나"
+        },
+        /* Use Only One IFI (Inverse Functional Identifier) Below */
+        /*
+        "mbox": "mailto:joonnii@gmail.com",
+        // The hex-encoded SHA1 hash of a mailto IRI (i.e. the value of an mbox property). An LRS MAY include Agents with a matching hash when a request is based on an mbox.
+        "mbox_sha1sum": "AA30BD950C5FC34FFC43E4FB6FDB692D6A2E66CC",
+        "openid": "http://openid.wickedstorm.kr/joonnii",
+        */
+        "account": {
+            "homePage": "https://www.hydee.co.kr/%EC%9D%98%EB%9E%91%EC%B4%88",
+            "name": {
+                "ko-KR": "1학년-햇님반-1번"
+            }
+        }
+    },
+    /* Verb */
+    "verb": {                                                                   // Required
+        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/moved-to",     // Required
+        "display": {
+            "en-US": "movedTo",                                                 // Recommended
+            "description": "주어진 경로에서 특정 목적지로 이동했음을 나타냄."               // Recommended
+        }
+    },
+    /* Object - When the ObjectType is Activity */
+    "object": {                                                                 // Required
+        "id": "https://www.hydee.co.kr/student/myclass",                        // Required
+        "definition": {                                                         // Optional
+            "name": {                                                           // Recommended
+                "ko-KR": "학습하기"
+            },
+            "description": {                                                    // Recommended
+                "ko-KR": "학습하기"
+            },
+            "type": "https://ubion.co.kr/xapi/activity-type/menu"              // Recommended
+            /*
+            "moreInfo": "https://ubion.co.kr/xapi/activity-type/menu/info",     // Optional
+            "extensions": {                                                     // Optional
+            }
+            */
+        },
+        "objectType": "Activity"                                                // Optional
+    },
+    /* Result */
+    /*
+    "result": {                                                                 // Optional
+        "score": {},                                                            // Not Required
+        "success": "",                                                          // Not Required
+        "response": "",                                                         // Not Required
+        "completion": "",                                                       // Optional
+        "duration": "",                                                         // Optional
+        "extensions": {                                                         // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/current-index": "3",                                               // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/total-index": "9",                                                 // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/view-started-time": "2021-03-17T10:00:00.000+09:00",               // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/view-ended-time": "2021-03-17T10:10:00.000+09:00"                  // Optional
+        }
+    },
+    */
+    /* Context */
+    "context": {                                                                // Optional
+        "registration": "",                                                     // Optional
+        "instructor": {                                                         // Optional
+            "name": "강하늘",                                                     // Optional
+            "account": {                                                        // Use Only One IFI
+                "homePage": "https://www.hydee.co.kr/%EC%9D%98%EB%9E%91%EC%B4%88",
+                "name": "skykang1"
+            },
+            "objectType": "Agent"
+        },
+        "contextActivities": {                                                  // Optional
+            "parent": [                                                         // Optional
+                {
+                    "definition": {
+                        "name": {
+                            "ko-KR": "강좌(수업)"
+                        },
+                        "description": {
+                            "ko-KR": "강좌(수업)"
+                        }
+                    },
+                    "id": "https://www.hydee.co.kr/student/myclass/view/590038",
+                    "objectType": "Activity"
+                }
+            ],
+            "grouping": [                                                       // Optional
+                {
+                    "definition": {
+                        "name": {
+                            "ko-KR": "오늘 학습 목록"
+                        },
+                        "description": {
+                            "ko-KR": "오늘 학습 목록"
+                        }
+                    },
+                    "id": "https://www.hydee.co.kr/student/myclass/#2021-03-17",
+                    "objectType": "Activity"
+                }
+            ],
+            "category": [                                                       // Optional
+                {
+                    "id": "https://ubion.co.kr/xapi/profile/navigation/1.0/"
+                }
+            ]
+        },
+        /* 
+        "revision": "",                                                         // Optional
+        "statement": "",                                                        // Optional
+        "language": "",                                                         // Optional
+        */
+        "platform": "HyDee",                                                    // Optional
+        "extensions": {                                                         // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-id": "https://www.hydee.co.kr/student/myclass",             // Required
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-type": "Menu",                                              // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-name": "학습하기",                                            // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-id": "https://www.hydee.co.kr/student/homework/",         // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-type": "Menu",                                            // Optional
+            "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-name": "과제하기"                                           // Optional
+        }
+    },
+    /* Timestamp */
+    "timestamp": "2021-03-12T21:01:38.743Z",                                    // Optional
+    /* "timestamp": "2021-03-12T21:01:38.743+00:00", */
+    /* Version */
+    "version": "1.0.0"                                                          // Not Recommended Set by LRS (xAPI Version - Header Data - X-Experience-API-Version)
+}
+

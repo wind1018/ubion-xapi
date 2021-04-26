@@ -1,0 +1,314 @@
+{
+    /* ID */
+    "id" : "7e20a3ff-b683-4e01-bafc-2b4acb5f97a7",                              // Recommended
+    /* Actor - When the Actor objectType is Agent */
+    "actor" : {                                                                 // Required
+        "objectType": "Agent",                                                  // Required
+        "name": {                                                               // Optional
+            "ko-KR": "김하나"
+        },
+        /* Use Only One IFI (Inverse Functional Identifier) Below */
+        /*
+        "mbox": "mailto:joonnii@gmail.com",
+        // The hex-encoded SHA1 hash of a mailto IRI (i.e. the value of an mbox property). An LRS MAY include Agents with a matching hash when a request is based on an mbox.
+        "mbox_sha1sum": "AA30BD950C5FC34FFC43E4FB6FDB692D6A2E66CC",
+        "openid": "http://openid.wickedstorm.kr/joonnii",
+        */
+        "account": {
+            "homePage": "https://www.hydee.co.kr",
+            "name": {
+                "ko-KR": "1학년-햇님반-1번" // 계정정보
+            }
+        }
+    },
+    /* Actor - When the Actor objectType is Group */
+    /*
+    "actor" : {                                         
+        "objectType": "Group",                                                  // Required
+        "name": "Test Group",                                                   // Optional
+        "mbox": "mailto:teamxapi@example.com",                                  // Use Only One IFI
+        "member": [                                                             // Required
+            {
+                "name": "Bob",
+                "account": {
+                    "homePage": "http://www.example.com",
+                    "name": "13936749"
+                },
+                "objectType": "Agent"
+            },
+            {
+                "name": "Alice",
+                "mbox_sha1sum": "ebd31e95054c018b10727de4db3ef2ec3a016ee9",
+                "objectType": "Agent"
+            },
+            {   "name": "James",
+                "mbox": "mailto:joonnii@gmail.com",
+                "objectType": "Agent"
+            },
+            {   "name": "Sam",
+                "openid": "http://openid.wickedstorm.kr/sam",
+                "objectType": "Agent"
+            }
+        ]
+    },
+    */
+    /* Verb */
+    "verb": {                                                                   // Required
+        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/initialized",  // Required
+        "display": {
+            "en-US": "Initialized",                                             // Recommended
+            "description": "Media가 완전히 초기화되었거나 시작되었을때 사용"               // Recommended
+        }
+    },
+    /* Object - When the ObjectType is Activity */
+    "object": {                                                                 // Required
+        "id": "https://youtu.be/mI4HhD0NLw4",                                   // Required
+        "definition": {                                                         // Optional
+            "name": {                                                           // Recommended
+                "en-US": "Video Activity"
+            },
+            "description": {                                                    // Recommended
+                "en-US": "Example activity description"
+            },
+            "type": "https://ubion.co.kr/xapi/activity-type/video",             // Recommended
+            "moreInfo": "https://ubion.co.kr/xapi/activity-type/video/info",    // Optional
+            "extensions": {                                                     // Optional
+            }
+        },
+        "objectType": "Activity"                                                // Optional
+    },
+    /* Object - When the ObjectType is Agent/Group */
+    /*
+    "object": {
+        "objectType": "Agent",                                                  // Required
+        "name": "James Lee",                                                    // Optional
+        "mbox": "mailto:joonnii@gmail.com",                                     // Use Only One IFI
+        "mbox_sha1sum": "AA30BD950C5FC34FFC43E4FB6FDB692D6A2E66CC",
+        "openid": "http://openid.wickedstorm.kr/joonnii",
+        "account": {
+            "homePage": "http://www.wickedstorm.kr",
+            "name": "joonnii"
+        }
+    },
+    */
+    /* Object - When the ObjectType is SubStatement or Statement Reference */
+    /*
+    "object": {
+		"objectType":"StatementRef",                                            // Required
+		"id":"8f87ccde-bb56-4c2e-ab83-44982ef22df0"                             // Required
+	},
+    */
+    /* Result */
+    /*
+    "result": {                                                                 // Optional
+        "score": {},                                                            // Not Required
+        "success": "",                                                          // Not Required
+        "response": "",                                                         // Not Required
+        "completion": "",                                                       // Optional
+        "duration": "",                                                         // Optional
+        "extensions": {                                                         // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time-from": 4.123,                                                   // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time-to": 13.430,                                                    // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time": 23.560,                                                       // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/progress": 0.891,                                                    // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/played-segments": "0.000[.]12.000[,]14.000[.]21.000[,]18.000[.]30.000"  // Optional
+        }
+    },
+    */
+    /* Context */
+    "context": {                                                                // Optional
+        "registration": "",                                                     // Optional
+        "instructor": {                                                         // Optional
+            "name": "강하늘",                                                     // Optional
+            "account": {                                                        // Use Only One IFI
+                "homePage": "https://www.hydee.co.kr/%EC%9D%98%EB%9E%91%EC%B4%88",
+                "name": "skykang1"
+            },
+            "objectType": "Agent"
+        },
+        "team": {                                                               // Optional
+            "name": "Student Team",
+            "member": [
+                {
+                    "name": "Bob",
+                    "account": {
+                        "homePage": "http://www.example.com",
+                        "name": "13936749"
+                    },
+                    "objectType": "Agent"
+                },
+                {
+                    "name": "Alice",
+                    "mbox_sha1sum": "ebd31e95054c018b10727de4db3ef2ec3a016ee9",
+                    "objectType": "Agent"
+                }
+            ],
+            "objectType": "Group"
+        },
+        "contextActivities": {                                                  // Optional
+            /*
+            Parent: an Activity with a direct relation to the Activity which is the Object of the Statement.
+            In almost all cases there is only one sensible parent or none, not multiple.
+            For example: a Statement about a quiz question would have the quiz as its parent Activity.
+
+            Statement의 Object와 직접적인 관계가 있는 활동을 구성함 (물리적 포함 관계)
+            대부분은 하나의 Parent가 존재하거나 없을 수 있음
+            예: 퀴즈 질문에 대한 설명에는 퀴즈가 상위 활동으로 포함됨
+
+            이 활동은 창의적 체험활동 강좌(수업)중 하나의 동영상을 실행한 것이다.
+            이 활동은 강좌(수업)의 일부이다. => Parent : 강좌(수업)
+            */
+            "parent": [                                                         // Optional
+                {
+                    "definition": {
+                        "name": {
+                            "ko-KR": "강좌(수업)"
+                        },
+                        "description": {
+                            "ko-KR": "강좌(수업)"
+                        }
+                    },
+                    "id": "https://www.hydee.co.kr/student/myclass/view/590038",
+                    "objectType": "Activity"
+                }
+            ],
+            /*
+            Grouping: an Activity with an indirect relation to the Activity which is the Object of the Statement.
+            For example: a course that is part of a qualification. The course has several classes.
+            The course relates to a class as the parent, the qualification relates to the class as the grouping.
+
+            Statement의 대상 Object와 간접적인 관계가 있는 활동을 구성함 (의미적 포함 관계)
+            예 : 자격(증)의 일부인 Course. 이 Course에는 여러 수업으로 이루어져 있음
+            Course는 수업의 Parent로서의 관련되고, 자격(증)은 그룹으로서 수업과 관련됨
+
+            이 활동은 창의적 체험활동 강좌(수업)중 하나의 동영상을 실행한 것이다.
+            이 활동은 창의적 체험활동에 관한 내용으로 구성되어있다. => Group : 창의적 체험활동
+            */
+            "grouping": [                                                       // Optional
+                {
+                    "definition": {
+                        "name": {
+                            "ko-KR": "창의적 체험활동"
+                        },
+                        "description": {
+                            "ko-KR": "창의적 체험활동"
+                        }
+                    },
+                    "id": "https://www.hydee.co.kr/student/myclass/view/590038/6",
+                    "objectType": "Activity"
+                }
+            ],
+            /*
+            Category: an Activity used to categorize the Statement. "Tags" would be a synonym.
+            Category SHOULD be used to indicate a profile of xAPI behaviors, as well as other categorizations.
+            For example: Anna attempts a biology exam, and the Statement is tracked using the cmi5 profile.
+            The Statement's Activity refers to the exam, and the category is the cmi5 profile.
+            
+            Statement를 분류하는데 사용되는 활동. 태그는 동의어
+            Category는 xAPI 동작의 Profile 및 기타 Category를 나타내는 데 사용되어야 함
+            예 : Anna는 생물학 시험을 시도하고, cmi5 Profile을 사용하여 Statement를 제공
+            Statement의 활동은 시험을 나타내며, Category는 cmi5 Profile을 나타냄
+
+            이 활동은 창의적 체험활동 강좌(수업)중 하나의 동영상을 실행한 것이다.
+            이 활동은 유튜브 동영상을 사용했다. => Category : Media Profile
+            */
+            "category": [                                                       // Optional
+                {
+                    "id": "https://ubion.co.kr/xapi/profile/media/1.0/"
+                }
+            ],
+            /*
+            Other: a contextActivity that doesn't fit one of the other properties.
+            For example: Anna studies a textbook for a biology exam.
+            The Statement's Activity refers to the textbook, and the exam is a contextActivity of type other.
+
+            이 활동은 창의적 체험활동 강좌(수업)중 하나의 동영상을 실행한 것이다.
+            이 활동은 유튜브 동영상을 사용했다. => Other : Youtube
+            */
+            "other": [                                                          // Optional
+                {
+                    "definition": {
+                        "name": {
+                            "en-US": "Youtube"
+                        },
+                        "description": {
+                            "ko-KR": "출처"
+                        }
+                    },
+                    "id": "http://youtube.com",
+                    "objectType": "Activity"
+                }
+            ]
+        },
+        /* 
+        "revision": "",                                                         // Optional
+        "statement": "",                                                        // Optional
+        "language": "",                                                         // Optional
+        */
+        "platform": "HyDee",                                                    // Optional
+        "extensions": {                                                         // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/media-session-id": "7e20a3ff-b683-4e01-bafc-2b4acb5f97a7",         // UUID of Statement ID
+            /*
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/cc-subtitle-enabled": true,                                        // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/cc-subbtitle-lang": "ko-KR",                                        // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/full-screen": false,                                               // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/video-playback-size": "1080x960",                                  // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/speed": "1x",                                                      // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/volume": 0.6,                                                      // Optional
+            */
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/frame-rate": 60,                                                   // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/quality": "1080",                                                  // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/screen-size": "1080x960",                                          // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/track": "N/A",                                                     // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",  // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/length": 120.123,                                                  // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/completion-threshold": 0.8,                                        // Optional
+            "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/tag": "#인기동요,#율동동요,#동물동요"                                     // Optional
+        }
+    },
+    /* Timestamp */
+    "timestamp": "2021-03-12T21:01:38.743Z",                                    // Optional
+    /* "timestamp": "2021-03-12T21:01:38.743+00:00", */
+    /* Stored */
+    "stored": "2021-03-17T08:58:07.976025+00:00",                               // Set by LRS
+    /* Authority */
+    "authority": {                                                              // Optional - Verified by the LRS based on authentication
+        "mbox": "mailto:ganesh6plus@gmail.com",
+        "name": "GaneshMysore",
+        "objectType": "Agent"
+    },
+    /* Version */
+    "version": "1.0.0",                                                         // Not Recommended Set by LRS (xAPI Version - Header Data - X-Experience-API-Version)
+    /* Attachment */
+    "attathment": [                                                             // Optional
+        {
+            "usageType": "http://example.com/test/usage",                       // Required
+            /* 
+            Signature
+            - http://adlnet.gov/expapi/attachments/signature
+            Certificate of Completion
+            - Certificate provided upon completion of an exercise, perhaps as part of a formal learning activity.
+            - http://id.tincanapi.com/attachment/certificate-of-completion
+            Contract
+            - A contract intended to be legally binding between two parties. May be part of a sales process, hiring process, real estate transaction, etc.
+            - http://id.tincanapi.com/attachment/contract
+            SupportingMedia
+            - A media file that supports the experience. For example a video that shows the experience taking place.
+            - http://id.tincanapi.com/attachment/supporting_media
+            Open Badges Baked Badge Image
+            - An attached Baked Badge Image. This is a png image containing additional metadata as defined by the Open Badges specification.
+            - http://specification.openbadges.org/xapi/attachment/badge
+            */
+            "display": {                                                        // Required
+                "en-US": "My Attachment"
+            },
+            "description": {                                                    // Optional
+                "en-US": "Example attachment description"
+            },
+            "contentType": "image/jpeg",                                        // Required (Internet Media Type : Content-Type)
+            "length": 9084,                                                     // Required (Content-Length)
+            "sha2": "",                                                         // Required X-Experience-API-Hash
+            "fileUrl": ""                                                       // Optional
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "actor" : {"id" : "james@example.com", "name" : "제임스"},    // Required
+    "instructor" : {"id": "tutor@example.com","name": "양대리"},  // Optional - 강사 정보가 존재할 경우 사용
+    "parent" : [                                                // Optional - 활동의 상위 정보가 존재할 경우 사용
+        {
+            "id": "http://www.example.com/menu/video/",
+            "name": {"language":"ko-KR", "value": "동영상 강좌"},
+            "description" : {"language":"ko-KR", "value": "동영상 강좌"}
+        }
+    ],
+    "grouping" : [                                              // Optional - 활동의 소속/포함 정보가 존재할 경우 사용
+        {
+            "id": "http://www.example.com/course/ocean",
+            "name": {"language":"ko-KR", "value": "바다"},
+            "description" : {"language":"ko-KR", "value": "바다속 체험"}
+        }
+    ],
+    "other" : [                                                 // Optional - 기타 활동의 부가 정보가 존재할 경우 사용
+        {
+            "id": "https://videojs.com/advanced/?video=disneys-oceans",
+            "name": {"language":"en-US", "value": "Disney's Oceans"},
+            "description" : {"language":"en-US", "value": "Video JS Sample Video"}
+        }
+    ],
+    "platform" : "Ubion xAPI Sample"                            // Optional - 플랫폼 명칭
+}

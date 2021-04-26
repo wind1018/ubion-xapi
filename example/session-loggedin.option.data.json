@@ -1,0 +1,7 @@
+{
+    "actor" : {
+        "id" : "james@example.com",
+        "name" : "제임스"
+    },
+    "platform" : "Ubion xAPI Sample"
+}

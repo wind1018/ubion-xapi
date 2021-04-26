@@ -1,0 +1,14 @@
+{
+    "actor" : {
+        "id" : "james@example.com",
+        "name" : "제임스"
+    },
+    "parent" : [
+        {
+            "id": "http://www.example.com/menu",
+            "name": {"language":"ko-KR", "value": "전체 메뉴"},
+            "description" : {"language":"ko-KR", "value": "전체 메뉴"}
+        }
+    ],
+    "platform" : "Ubion xAPI Sample"
+}

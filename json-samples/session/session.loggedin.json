@@ -1,0 +1,87 @@
+{
+    /* ID */
+    "id" : "7e20a3ff-b683-4e01-bafc-2b4acb5f97a7",                              // Recommended
+    /* Actor - When the Actor objectType is Agent */
+    "actor" : {                                                                 // Required
+        "objectType": "Agent",                                                  // Required
+        "name": {                                                               // Optional
+            "ko-KR": "김하나"
+        },
+        /* Use Only One IFI (Inverse Functional Identifier) Below */
+        /*
+        "mbox": "mailto:joonnii@gmail.com",
+        // The hex-encoded SHA1 hash of a mailto IRI (i.e. the value of an mbox property). An LRS MAY include Agents with a matching hash when a request is based on an mbox.
+        "mbox_sha1sum": "AA30BD950C5FC34FFC43E4FB6FDB692D6A2E66CC",
+        "openid": "http://openid.wickedstorm.kr/joonnii",
+        */
+        "account": {
+            "homePage": "https://www.hydee.co.kr/%EC%9D%98%EB%9E%91%EC%B4%88",
+            "name": {
+                "ko-KR": "1학년-햇님반-1번"
+            }
+        }
+    },
+    /* Verb */
+    "verb": {                                                                   // Required
+        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/logged-in",  // Required
+        "display": {
+            "en-US": "loggedIn",                                                // Recommended
+            "description": "Software Application 에 권한을 취득하여 활동을 시작하였음."  // Recommended
+        }
+    },
+    /* Object - When the ObjectType is Activity */
+    "object": {                                                                 // Required
+        "id": "https://www.hydee.co.kr",                                        // Required
+        "definition": {                                                         // Optional
+            "name": {                                                           // Recommended
+                "ko-KR": "하이디"
+            },
+            "description": {                                                    // Recommended
+                "ko-KR": "하이디"
+            },
+            "type": "https://ubion.co.kr/xapi/activity-type/software-application"  // Recommended
+            /*
+            "moreInfo": "https://ubion.co.kr/xapi/activity-type/software-application/info", // Optional
+            "extensions": {                                                     // Optional
+            }
+            */
+        },
+        "objectType": "Activity"                                                // Optional
+    },
+    /* Result */
+    /*
+    "result": {                                                                 // Optional
+        "score": {},                                                            // Not Required
+        "success": "",                                                          // Not Required
+        "response": "",                                                         // Not Required
+        "completion": "",                                                       // Optional
+        "duration": "",                                                         // Optional
+        "extensions": {                                                         // Optional
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attempt-count": "1"                                                // Optional
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attended-time": "2021-03-17T10:00:00.000+09:00",                   // Optional
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attended-reason": "",                                              // Optional
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/leaved-reason": ""                                                 // Optional
+        }
+    },
+    */
+    /* Context */
+    "context": {                                                                // Optional
+        "registration": "",                                                     // Optional
+        "platform": "HyDee",                                                    // Optional
+        "extensions": {                                                         // Optional
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/session-id": "7e20a3ff-b683-4e01-bafc-2b4acb5f97a7",               // Required - Logged-In Session
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/started-time": "2021-03-17T10:00:00.000+09:00",                    // Required
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",                                                   // Optional
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/ip-address": "2001:0db8:85a3:0000:0000:8a2e:0370:7334",            // Optional - IPv4 or IPv6
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/host": "https://www.hydee.co.kr"                                   // Optional
+            /*
+            "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/ended-time": "",                                                   // Not Required
+            */
+        }
+    },
+    /* Timestamp */
+    "timestamp": "2021-03-12T21:01:38.743Z",                                    // Optional
+    /* "timestamp": "2021-03-12T21:01:38.743+00:00", */
+    /* Version */
+    "version": "1.0.0"                                                         // Not Recommended Set by LRS (xAPI Version - Header Data - X-Experience-API-Version)
+}
