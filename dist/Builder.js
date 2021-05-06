@@ -255,12 +255,12 @@ var MediaProfile = /** @class */ (function (_super) {
             result["extensions"] = ext;
             if (this.started == true) {
                 this.endPlayedSegment(extension["time"], extension["media-session-id"]);
-                if (result["duration"] == undefined) {
-                    result["duration"] = this.setDuration(extension["media-session-id"]);
-                }
-                else {
-                    result["duration"] = "PT" + result["duration"].toFixed(3) + "S";
-                }
+            }
+            if (result["duration"] == undefined) {
+                result["duration"] = this.setDuration(extension["media-session-id"]);
+            }
+            else {
+                result["duration"] = "PT" + result["duration"].toFixed(3) + "S";
             }
             result["extensions"][this.resultExtensionsDict[0]['media']["played-segments"]] = this.mediaSessionId[extension["media-session-id"]]["segments"];
             this._result = result;
