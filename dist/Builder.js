@@ -3,15 +3,22 @@ var XAPI;
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 900:
+/***/ 905:
 /***/ ((__unused_webpack_module, exports) => {
 
 
 exports.__esModule = true;
+/**
+ * 공통으로 사용하는 환경 설정 내용
+ */
 var Config = {
+    /** LRS Endpoint */
     endpoint: 'http://wickedstorm.iptime.org/data/xAPI/',
-    username: "5b7a6060d79cff00aaa9ee67b9169bbe238473b2",
-    password: "9580718c71e462f0a8ce63445b3415465cdff7c2",
+    /** LRS Clients Key */
+    key: "5b7a6060d79cff00aaa9ee67b9169bbe238473b2",
+    /** LRS Clients secret */
+    secret: "9580718c71e462f0a8ce63445b3415465cdff7c2",
+    /** ADL Version */
     version: "1.0.3"
 };
 exports.default = Config;
@@ -19,116 +26,68 @@ exports.default = Config;
 
 /***/ }),
 
-/***/ 850:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 788:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 exports.__esModule = true;
-exports.mediaProfile = void 0;
-var uuid_1 = __webpack_require__(453);
-var mediaProfile = /** @class */ (function () {
-    function mediaProfile() {
-        this.segments = "";
-        this.played_segments = "";
-        this.mediaSessionId = uuid_1.v4();
-        this.started = false;
-        this.VerbDic = {
-            "initialized": {
-                "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/initialized",
-                "display": {
-                    "en-US": "initialized"
-                }
-            },
-            "played": {
-                "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/played",
-                "display": {
-                    "en-US": "played"
-                }
-            },
-            "paused": {
-                "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/paused",
-                "display": {
-                    "en-US": "paused"
-                }
-            },
-            "seeked": {
-                "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/seeked",
-                "display": {
-                    "en-US": "seeked"
-                }
-            },
-            "completed": {
-                "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/completed",
-                "display": {
-                    "en-US": "completed"
-                }
-            },
-            "terminated": {
-                "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/terminated",
-                "display": {
-                    "en-US": "terminated"
-                }
-            },
-            "interacted": {
-                "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/interacted",
-                "display": {
-                    "en-US": "interacted"
-                }
-            }
-        };
-        this.ActivityNames = {
-            "video": {
-                "type": "https://ubion.co.kr/xapi/activity-type/video",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/video/info"
-            },
-            "audio": {
-                "type": "https://ubion.co.kr/xapi/activity-type/audio",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/audio/info"
-            }
-        };
-        this.ResultExtensions = {
-            "time": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time",
-            "time-from": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time-from",
-            "time-to": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time-to",
-            "progress": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/progress",
-            "played-segments": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/played-segments"
-        };
-        this.ContextExtensions = {
-            "media-session-id": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/media-session-id",
-            "cc-subtitle-enabled": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/cc-subtitle-enabled",
-            "cc-subtitle-lang": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/cc-subbtitle-lang",
-            "frame-rate": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/frame-rate",
-            "full-screen": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/full-screen",
-            "quality": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/quality",
-            "screen-size": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/screen-size",
-            "video-playback-size": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/video-playback-size",
-            "speed": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/speed",
-            "track": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/track",
-            "user-agent": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/user-agent",
-            "volume": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/volume",
-            "length": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/length",
-            "completion-threshold": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/completion-threshold",
-            "tag": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/tag"
-        };
+exports.MediaProfile = void 0;
+var xAPIProfile_1 = __webpack_require__(248);
+/**
+ * media profile
+ * + verb, activity, result, context, extension property에 대한 validation 처리
+ * + validation 후 verb, activty, result, context, extension property 구성
+ */
+var MediaProfile = /** @class */ (function (_super) {
+    __extends(MediaProfile, _super);
+    function MediaProfile() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /** media play record */
+        _this.mediaSessionId = {};
+        /** media start flag */
+        _this.started = false;
+        _this.verbDict = _this.dict.verb.filter(function (data) { return data.hasOwnProperty('media'); });
+        _this.activityDict = _this.dict.activityNames.filter(function (data) { return data.hasOwnProperty('media'); });
+        _this.resultExtensionsDict = _this.dict.extensions.result.filter(function (data) { return data.hasOwnProperty('media'); });
+        _this.contextExtensionsDict = _this.dict.extensions.context.filter(function (data) { return data.hasOwnProperty('media'); });
+        return _this;
     }
-    mediaProfile.prototype.validateVerbName = function (verbName) {
-        return this.VerbDic.hasOwnProperty(verbName);
+    /**
+     * property validation
+     * + verb property validation
+     * + profile dictionary의 verb에 존재 여부 validation
+     * @param verbName
+     * @returns boolean
+     */
+    MediaProfile.prototype.validateVerbName = function (verbName) {
+        return this.verbDict[0]['media'].hasOwnProperty(verbName);
     };
-    mediaProfile.prototype.getVerb = function (verbName) {
-        if (this.validateVerbName(verbName.toLowerCase())) {
-            this.setVerb(verbName);
-            return this._verb;
-        }
-        else {
-            console.log({ "error": "setVerb is fail." });
-            return { "error": "getVerb is fail." };
-        }
-    };
-    mediaProfile.prototype.setVerb = function (verbName) {
-        if (this.VerbDic[verbName].id !== '' || undefined && this.VerbDic[verbName].display !== '' || undefined) {
+    /**
+     * set property
+     * + validation 후 verb property 구성
+     * @param verbName
+     * @returns boolean
+     */
+    MediaProfile.prototype.setVerb = function (verbName) {
+        if (this.verbDict[0]['media'][verbName].id !== '' || undefined && this.verbDict[0]['media'][verbName].display !== '' || undefined) {
             this._verb = {
-                id: this.VerbDic[verbName].id,
-                display: this.VerbDic[verbName].display
+                id: this.verbDict[0]['media'][verbName].id,
+                display: this.verbDict[0]['media'][verbName].display
             };
             return true;
         }
@@ -137,27 +96,40 @@ var mediaProfile = /** @class */ (function () {
             return false;
         }
     };
-    mediaProfile.prototype.validateActivityName = function (objectActivityName) {
-        return this.ActivityNames.hasOwnProperty(objectActivityName.toLocaleLowerCase());
+    /**
+     * property validation
+     * + activity property validation
+     * + profile dictionary의 activity에 존재 여부 validation
+     * @param objectActivityName
+     * @returns boolean
+     */
+    MediaProfile.prototype.validateActivityName = function (objectActivityName) {
+        return this.activityDict[0]['media'].hasOwnProperty(objectActivityName.toLocaleLowerCase());
     };
-    mediaProfile.prototype.getActivity = function (objectActivityName, objectID, definitionName, description) {
-        if (this.validateActivityName(objectActivityName)) {
-            this.setActivity(objectActivityName, objectID, definitionName, description);
-            return this._activity;
-        }
-        else {
-            console.log({ "error": "getActivity is fail." });
-            return { "error": "getActivity is fail" };
-        }
-    };
-    mediaProfile.prototype.setActivity = function (objectActivityName, objectID, definitionName, description) {
+    /**
+     * set property
+     * + validation 후 activity property 구성
+     * @param objectActivityName
+     * @param objectID
+     * @param definitionName
+     * @param description
+     * @returns boolean
+     */
+    MediaProfile.prototype.setActivity = function (objectActivityName, objectID, definitionName, description) {
         objectActivityName = objectActivityName.toLowerCase();
         objectID = objectID;
         var objectType = "Activity";
         if (this.validateActivityName(objectActivityName)) {
             if (definitionName != {} || definitionName != undefined || definitionName != '') {
-                if (description == {}) {
-                    return false;
+                if (Object.keys(description).length === 0) {
+                    this._activity = {
+                        id: objectID,
+                        objectType: objectType,
+                        definition: {
+                            name: definitionName,
+                            type: this.activityDict[0]['media'][objectActivityName].type
+                        }
+                    };
                 }
                 else {
                     this._activity = {
@@ -165,23 +137,12 @@ var mediaProfile = /** @class */ (function () {
                         objectType: objectType,
                         definition: {
                             name: definitionName,
-                            type: this.ActivityNames[objectActivityName].type
+                            type: this.activityDict[0]['media'][objectActivityName].type,
+                            description: description
                         }
                     };
                 }
             }
-            else {
-                this._activity = {
-                    id: objectID,
-                    objectType: objectType,
-                    definition: {
-                        name: definitionName,
-                        type: this.ActivityNames[objectActivityName].type,
-                        description: description
-                    }
-                };
-            }
-            ;
             return true;
         }
         else {
@@ -189,7 +150,13 @@ var mediaProfile = /** @class */ (function () {
             return false;
         }
     };
-    mediaProfile.prototype.validateResult = function (result) {
+    /**
+     * property validation
+     * + profile dictionary의 result에 존재 여부 validation
+     * @param result
+     * @returns boolean
+     */
+    MediaProfile.prototype.validateResult = function (result) {
         var flag = true;
         if (result.hasOwnProperty("score")) {
             if (result["score"].hasOwnProperty("scaled")) {
@@ -259,31 +226,26 @@ var mediaProfile = /** @class */ (function () {
         }
         return flag;
     };
-    mediaProfile.prototype.getResult = function (verbName, result, extension) {
-        if (result != undefined) {
-            if (this.validateResult(result)) {
-                this.setResult(verbName.toLocaleLowerCase(), result, extension);
-                return this._result;
-            }
-            else {
-                console.log({ "error": "getResult is fail." });
-                return { "error": " setResult is fails" };
-            }
-        }
-        else {
-            this.setResult(verbName, result, extension);
-            return this._result;
-        }
-    };
-    mediaProfile.prototype.setResult = function (verbName, result, extension) {
+    /**
+     * set property
+     * + validation 후 result property 구성
+     * @param verbName
+     * @param result
+     * @param extension
+     * @returns boolean
+     */
+    MediaProfile.prototype.setResult = function (verbName, result, extension) {
         var flag = false;
         var ext = {};
+        if (!this.mediaSessionId.hasOwnProperty(extension["media-session-id"])) {
+            this.mediaSessionId[extension["media-session-id"]] = {};
+        }
         if (!this.validateExtensionName(extension)) {
             return flag;
         }
         for (var key in extension) {
-            if (this.ResultExtensions.hasOwnProperty(key)) {
-                ext[this.ResultExtensions[key]] = extension[key];
+            if (this.resultExtensionsDict[0]['media'].hasOwnProperty(key)) {
+                ext[this.resultExtensionsDict[0]['media'][key]] = extension[key];
             }
         }
         if (result == undefined) {
@@ -292,35 +254,35 @@ var mediaProfile = /** @class */ (function () {
         if (verbName == "terminated") {
             result["extensions"] = ext;
             if (this.started == true) {
-                this.endPlayedSegment(extension["time"]);
+                this.endPlayedSegment(extension["time"], extension["media-session-id"]);
                 if (result["duration"] == undefined) {
-                    result["duration"] = this.setDuration();
+                    result["duration"] = this.setDuration(extension["media-session-id"]);
                 }
                 else {
                     result["duration"] = "PT" + result["duration"].toFixed(3) + "S";
                 }
             }
-            result["extensions"][this.ResultExtensions["played-segments"]] = this.segments;
+            result["extensions"][this.resultExtensionsDict[0]['media']["played-segments"]] = this.mediaSessionId[extension["media-session-id"]]["segments"];
             this._result = result;
             flag = true;
         }
         else if (verbName == "paused" || verbName == "completed") {
             this.started = false;
-            this.endPlayedSegment(extension["time"]);
+            this.endPlayedSegment(extension["time"], extension["media-session-id"]);
             if (result["duration"] == undefined) {
-                result["duration"] = this.setDuration();
+                result["duration"] = this.setDuration(extension["media-session-id"]);
             }
             else {
                 result["duration"] = "PT" + result["duration"].toFixed(3) + "S";
             }
             result["extensions"] = ext;
-            result["extensions"][this.ResultExtensions["played-segments"]] = this.segments;
+            result["extensions"][this.resultExtensionsDict[0]['media']["played-segments"]] = this.mediaSessionId[extension["media-session-id"]]["segments"];
             this._result = result;
             flag = true;
         }
         else if (verbName == "played") {
             this.started = true;
-            this.startPlayedSegment(extension["time"]);
+            this.startPlayedSegment(extension["time"], extension["media-session-id"]);
             result["extensions"] = ext;
             this._result = result;
             flag = true;
@@ -329,8 +291,8 @@ var mediaProfile = /** @class */ (function () {
             if (this.started) { // if media started
                 result["extensions"] = ext;
                 this._result = result;
-                this.endPlayedSegment(extension["time-from"]);
-                this.startPlayedSegment(extension["time-to"]);
+                this.endPlayedSegment(extension["time-from"], extension["media-session-id"]);
+                this.startPlayedSegment(extension["time-to"], extension["media-session-id"]);
                 flag = true;
             }
             else {
@@ -346,31 +308,32 @@ var mediaProfile = /** @class */ (function () {
         }
         return flag;
     };
-    mediaProfile.prototype.validateContextName = function (extension) {
+    /**
+     * property validation
+     * + profile dictionary의 context에 존재 여부 validation
+     * @param extension
+     * @returns boolean
+     */
+    MediaProfile.prototype.validateContextName = function (extension) {
         if (this.validateExtensionName(extension)) {
             return true;
         }
         return false;
     };
-    mediaProfile.prototype.getContext = function (extension) {
-        if (this.validateContextName(extension)) {
-            this.setContext(extension);
-            return this._context;
-        }
-        else {
-            console.log({ "error": "getContext is fail." });
-            return { 'error': 'getContext fail' };
-        }
-    };
-    mediaProfile.prototype.setContext = function (extension) {
+    /**
+     * set property
+     * + validation 후 context property 구성
+     * @param extension
+     * @returns boolean
+     */
+    MediaProfile.prototype.setContext = function (extension) {
         var ext = {};
         if (!this.validateExtensionName(extension)) {
             return false;
         }
-        extension["media-session-id"] = this.mediaSessionId;
         for (var key in extension) {
-            if (this.ContextExtensions.hasOwnProperty(key)) {
-                ext[this.ContextExtensions[key]] = extension[key];
+            if (this.contextExtensionsDict[0]['media'].hasOwnProperty(key)) {
+                ext[this.contextExtensionsDict[0]['media'][key]] = extension[key];
             }
         }
         this._context = {
@@ -378,7 +341,13 @@ var mediaProfile = /** @class */ (function () {
         };
         return true;
     };
-    mediaProfile.prototype.validateExtensionName = function (extensions) {
+    /**
+     * property validation
+     * + profile dictionary의 extension에 존재 여부 validation
+     * @param extensions
+     * @returns boolean
+     */
+    MediaProfile.prototype.validateExtensionName = function (extensions) {
         var flag = true;
         //result extention
         if (extensions.hasOwnProperty("time")) {
@@ -482,109 +451,164 @@ var mediaProfile = /** @class */ (function () {
                 flag = false;
             }
         }
+        if (extensions.hasOwnProperty("media-session-id")) {
+            if (typeof extensions["media-session-id"] !== "string") {
+                flag = false;
+            }
+        }
+        else {
+            flag = false;
+        }
         return flag;
     };
-    mediaProfile.prototype.getCurrentVerb = function () {
+    /**
+     * property return
+     * + verb property return
+     * @returns _verb
+     */
+    MediaProfile.prototype.getCurrentVerb = function () {
         return this._verb;
     };
-    mediaProfile.prototype.getCurrentActivity = function () {
+    /**
+     * property return
+     * + activity property return
+     * @returns _activity
+     */
+    MediaProfile.prototype.getCurrentActivity = function () {
         return this._activity;
     };
-    mediaProfile.prototype.getCurrentResult = function () {
+    /**
+     * property return
+     * + result property return
+     * @returns _result
+     */
+    MediaProfile.prototype.getCurrentResult = function () {
         return this._result;
     };
-    mediaProfile.prototype.getCurrentContext = function () {
+    /**
+     * property return
+     * + context property return
+     * @returns _context
+     */
+    MediaProfile.prototype.getCurrentContext = function () {
         return this._context;
     };
-    mediaProfile.prototype.getCurrentResultExtension = function () {
+    /**
+     * property return
+     * + result extension property return
+     * @returns result extension
+     */
+    MediaProfile.prototype.getCurrentResultExtension = function () {
         return this._result["extensions"];
     };
-    mediaProfile.prototype.getCurrentContextExtension = function () {
+    /**
+     * property return
+     * + context extension property return
+     * @returns context extension
+     */
+    MediaProfile.prototype.getCurrentContextExtension = function () {
         return this._context["extensions"];
     };
-    mediaProfile.prototype.setContextExtension = function (extension) {
-        return true;
-    };
-    mediaProfile.prototype.validateProfile = function (profile) {
+    /**
+     * property validation
+     * + result와 context property의 extension에 대한 validation
+     * @param profile
+     * @returns boolean
+     */
+    MediaProfile.prototype.validateProfile = function (profile) {
         var verb = profile['verb']['id'];
         var result = profile['result'];
         var context = profile['context'];
         var flag = false;
         switch (verb) {
-            case this.VerbDic.initialized.id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["length"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["media-session-id"])) {
+            case this.verbDict[0]['media'].initialized.id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["length"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["media-session-id"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic.played.id:
-                if (result["extensions"].hasOwnProperty(this.ResultExtensions["time"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["media-session-id"])) {
+            case this.verbDict[0]['media'].played.id:
+                if (result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["time"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["media-session-id"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic.paused.id:
-                if (result["extensions"].hasOwnProperty(this.ResultExtensions["time"]) &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["progress"]) &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["played-segments"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["length"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["media-session-id"])) {
+            case this.verbDict[0]['media'].paused.id:
+                if (result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["time"]) &&
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["progress"]) &&
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["played-segments"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["length"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["media-session-id"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic.seeked.id:
-                if (result["extensions"].hasOwnProperty(this.ResultExtensions["time-from"]) &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["time-to"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["media-session-id"])) {
+            case this.verbDict[0]['media'].seeked.id:
+                if (result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["time-from"]) &&
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["time-to"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["media-session-id"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic.completed.id:
+            case this.verbDict[0]['media'].completed.id:
                 if (result.hasOwnProperty("completion") &&
                     result.hasOwnProperty("duration") &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["time"]) &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["progress"]) &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["played-segments"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["length"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["media-session-id"])) {
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["time"]) &&
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["progress"]) &&
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["played-segments"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["length"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["media-session-id"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic.terminated.id:
+            case this.verbDict[0]['media'].terminated.id:
                 if (result.hasOwnProperty("duration") &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["time"]) &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["progress"]) &&
-                    result["extensions"].hasOwnProperty(this.ResultExtensions["played-segments"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["length"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["media-session-id"])) {
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["time"]) &&
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["progress"]) &&
+                    result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["played-segments"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["length"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["media-session-id"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic.interacted.id:
-                if (result["extensions"].hasOwnProperty(this.ResultExtensions["time"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["media-session-id"])) {
+            case this.verbDict[0]['media'].interacted.id:
+                if (result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['media']["time"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['media']["media-session-id"])) {
                     flag = true;
                 }
                 return flag;
         }
     };
-    mediaProfile.prototype.startPlayedSegment = function (start) {
-        this.startSegments = start;
+    /**
+     * Set startSegments
+     * @param start ex) 0.000
+     * @returns void
+     */
+    MediaProfile.prototype.startPlayedSegment = function (start, mediaSessionId) {
+        this.mediaSessionId[mediaSessionId]["startSegments"] = start;
     };
-    mediaProfile.prototype.endPlayedSegment = function (end) {
+    /**
+     * Set endPlayedSegment and segments
+     * @param end ex) 1.000
+     * @returns void
+     */
+    MediaProfile.prototype.endPlayedSegment = function (end, mediaSessionId) {
         var arr;
-        arr = (this.segments == "") ? [] : this.segments.split("[,]");
-        arr.push(this.startSegments.toFixed(3) + "[.]" + end.toFixed(3));
-        this.segments = arr.join("[,]");
-        this.endSegments = end;
-        this.startSegments = null;
+        arr = (this.mediaSessionId[mediaSessionId]["segments"] == undefined) ? [] : this.mediaSessionId[mediaSessionId]["segments"].split("[,]");
+        arr.push(this.mediaSessionId[mediaSessionId]["startSegments"].toFixed(3) + "[.]" + end.toFixed(3));
+        this.mediaSessionId[mediaSessionId]["segments"] = arr.join("[,]");
+        this.mediaSessionId[mediaSessionId]["endSegments"] = end;
+        this.mediaSessionId[mediaSessionId]["startSegments"] = null;
     };
-    mediaProfile.prototype.calculateDuration = function () {
+    /**
+     * calculate duration
+     * @returns duration
+     */
+    MediaProfile.prototype.calculateDuration = function (mediaSessionId) {
         var arr, arr2;
         //get played segments array
-        arr = (this.segments == "") ? [] : this.segments.split("[,]");
-        if (this.startSegments != null) {
-            arr.push(this.startSegments.toFixed(3) + "[.]" + this.endSegments.toFixed(3));
+        arr = (this.mediaSessionId[mediaSessionId]["segments"] == undefined) ? [] : this.mediaSessionId[mediaSessionId]["segments"].split("[,]");
+        if (this.mediaSessionId[mediaSessionId]["startSegments"] != null) {
+            arr.push(this.mediaSessionId[mediaSessionId]["startSegments"].toFixed(3) + "[.]" + this.mediaSessionId[mediaSessionId]["endSegments"].toFixed(3));
         }
         arr2 = [];
         var duration = 0;
@@ -597,128 +621,82 @@ var mediaProfile = /** @class */ (function () {
         });
         return duration;
     };
-    mediaProfile.prototype.setDuration = function () {
+    /**
+     * Set duration
+     * + duration 계산 (ISO8601 기준)
+     * @returns duration
+     */
+    MediaProfile.prototype.setDuration = function (mediaSessionId) {
         var duration = 0;
-        duration = this.calculateDuration();
+        duration = this.calculateDuration(mediaSessionId);
         return "PT" + duration.toFixed(3) + "S";
     };
-    return mediaProfile;
-}());
-exports.mediaProfile = mediaProfile;
+    return MediaProfile;
+}(xAPIProfile_1.xAPIProfile));
+exports.MediaProfile = MediaProfile;
 
 
 /***/ }),
 
-/***/ 402:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 896:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 exports.__esModule = true;
-exports.navigationProfile = void 0;
-var navigationProfile = /** @class */ (function () {
-    function navigationProfile() {
-        this.iso8601RegExp = /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$/;
-        this.VerbDic = {
-            "moved-to": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/moved-to",
-                "display": {
-                    "en-US": "moved-to"
-                }
-            },
-            "next": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/next",
-                "display": {
-                    "en-US": "next"
-                }
-            },
-            "previous": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/previous",
-                "display": {
-                    "en-US": "previous"
-                }
-            },
-            "clicked": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/clicked",
-                "display": {
-                    "en-US": "clicked"
-                }
-            },
-            "viewed": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/viewed",
-                "display": {
-                    "en-US": "viewed"
-                }
-            },
-            "popped-up": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/popped-up",
-                "display": {
-                    "en-US": "popped-up"
-                }
-            },
-            "opened": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/opened",
-                "display": {
-                    "en-US": "opened"
-                }
-            },
-            "closed": {
-                "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/closed",
-                "display": {
-                    "en-US": "closed"
-                }
-            }
-        };
-        this.ActivityNames = {
-            "document": {
-                "type": "https://ubion.co.kr/xapi/activity-type/document",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/document/info"
-            },
-            "webpage": {
-                "type": "https://ubion.co.kr/xapi/activity-type/webpage",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/webpage/info"
-            },
-            "menu": {
-                "type": "https://ubion.co.kr/xapi/activity-type/menu",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/menu/info"
-            },
-            "toc": {
-                "type": "https://ubion.co.kr/xapi/activity-type/toc",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/toc/info"
-            }
-        };
-        this.ResultExtensions = {
-            "current-index": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/current-index",
-            "total-index": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/total-index",
-            "view-started-time": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/view-started-time",
-            "view-ended-time": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/view-ended-time"
-        };
-        this.ContextExtensions = {
-            "target-id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-id",
-            "target-type": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-type",
-            "target-name": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-name",
-            "referrer-id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-id",
-            "referrer-type": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-type",
-            "referrer-name": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-name"
-        };
+exports.NavigationProfile = void 0;
+var xAPIProfile_1 = __webpack_require__(248);
+/**
+ * navigation profile
+ * + verb, activity, result, context, extension property에 대한 validation 처리
+ * + validation 후 verb, activty, result, context, extension property 구성
+ */
+var NavigationProfile = /** @class */ (function (_super) {
+    __extends(NavigationProfile, _super);
+    function NavigationProfile() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.iso8601RegExp = /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$/;
+        _this.verbDict = _this.dict.verb.filter(function (data) { return data.hasOwnProperty('navigation'); });
+        _this.activityDict = _this.dict.activityNames.filter(function (data) { return data.hasOwnProperty('navigation'); });
+        _this.resultExtensionsDict = _this.dict.extensions.result.filter(function (data) { return data.hasOwnProperty('navigation'); });
+        _this.contextExtensionsDict = _this.dict.extensions.context.filter(function (data) { return data.hasOwnProperty('navigation'); });
+        return _this;
     }
-    navigationProfile.prototype.validateVerbName = function (verbName) {
-        return this.VerbDic.hasOwnProperty(verbName);
+    /**
+     * property validation
+     * + verb property validation
+     * + profile dictionary의 verb에 존재 여부 validation
+     * @param verbName
+     * @returns boolean
+     */
+    NavigationProfile.prototype.validateVerbName = function (verbName) {
+        return this.verbDict[0]['navigation'].hasOwnProperty(verbName);
     };
-    navigationProfile.prototype.getVerb = function (verbName) {
-        if (this.validateVerbName(verbName.toLowerCase())) {
-            this.setVerb(verbName);
-            return this._verb;
-        }
-        else {
-            console.log({ "error": "setVerb is fail." });
-            return { "error": "getVerb is fail." };
-        }
-    };
-    navigationProfile.prototype.setVerb = function (verbName) {
-        if (this.VerbDic[verbName].id !== '' || undefined && this.VerbDic[verbName].display !== '' || undefined) {
+    /**
+     * set property
+     * + validation 후 verb property 구성
+     * @param verbName
+     * @returns boolean
+     */
+    NavigationProfile.prototype.setVerb = function (verbName) {
+        if (this.verbDict[0]['navigation'][verbName].id !== '' || undefined && this.verbDict[0]['navigation'][verbName].display !== '' || undefined) {
             this._verb = {
-                id: this.VerbDic[verbName].id,
-                display: this.VerbDic[verbName].display
+                id: this.verbDict[0]['navigation'][verbName].id,
+                display: this.verbDict[0]['navigation'][verbName].display
             };
             return true;
         }
@@ -727,27 +705,40 @@ var navigationProfile = /** @class */ (function () {
             return false;
         }
     };
-    navigationProfile.prototype.validateActivityName = function (objectActivityName) {
-        return this.ActivityNames.hasOwnProperty(objectActivityName.toLocaleLowerCase());
+    /**
+     * property validation
+     * + activity property validation
+     * + profile dictionary의 activity에 존재 여부 validation
+     * @param objectActivityName
+     * @returns boolean
+     */
+    NavigationProfile.prototype.validateActivityName = function (objectActivityName) {
+        return this.activityDict[0]['navigation'].hasOwnProperty(objectActivityName.toLocaleLowerCase());
     };
-    navigationProfile.prototype.getActivity = function (objectActivityName, objectID, definitionName, description) {
-        if (this.validateActivityName(objectActivityName)) {
-            this.setActivity(objectActivityName, objectID, definitionName, description);
-            return this._activity;
-        }
-        else {
-            console.log({ "error": "getActivity is fail." });
-            return { "error": "getActivity is fail" };
-        }
-    };
-    navigationProfile.prototype.setActivity = function (objectActivityName, objectID, definitionName, description) {
+    /**
+     * set property
+     * + validation 후 activity property 구성
+     * @param objectActivityName
+     * @param objectID
+     * @param definitionName
+     * @param description
+     * @returns boolean
+     */
+    NavigationProfile.prototype.setActivity = function (objectActivityName, objectID, definitionName, description) {
         objectActivityName = objectActivityName.toLowerCase();
         objectID = objectID;
         var objectType = "Activity";
         if (this.validateActivityName(objectActivityName)) {
             if (definitionName != {} || definitionName != undefined || definitionName != '') {
-                if (description == {}) {
-                    return false;
+                if (Object.keys(description).length === 0) {
+                    this._activity = {
+                        id: objectID,
+                        objectType: objectType,
+                        definition: {
+                            name: definitionName,
+                            type: this.activityDict[0]['navigation'][objectActivityName].type
+                        }
+                    };
                 }
                 else {
                     this._activity = {
@@ -755,23 +746,12 @@ var navigationProfile = /** @class */ (function () {
                         objectType: objectType,
                         definition: {
                             name: definitionName,
-                            type: this.ActivityNames[objectActivityName].type
+                            type: this.activityDict[0]['navigation'][objectActivityName].type,
+                            description: description
                         }
                     };
                 }
             }
-            else {
-                this._activity = {
-                    id: objectID,
-                    objectType: objectType,
-                    definition: {
-                        name: definitionName,
-                        type: this.ActivityNames[objectActivityName].type,
-                        description: description
-                    }
-                };
-            }
-            ;
             return true;
         }
         else {
@@ -779,7 +759,13 @@ var navigationProfile = /** @class */ (function () {
             return false;
         }
     };
-    navigationProfile.prototype.validateResult = function (result) {
+    /**
+     * property validation
+     * + profile dictionary의 result에 존재 여부 validation
+     * @param result
+     * @returns boolean
+     */
+    NavigationProfile.prototype.validateResult = function (result) {
         var flag = true;
         if (result.hasOwnProperty("score")) {
             if (result["score"].hasOwnProperty("scaled")) {
@@ -841,31 +827,23 @@ var navigationProfile = /** @class */ (function () {
         }
         return flag;
     };
-    navigationProfile.prototype.getResult = function (verbName, result, extension) {
-        if (result != undefined) {
-            if (this.validateResult(result)) {
-                this.setResult(verbName.toLocaleLowerCase(), result, extension);
-                return this._result;
-            }
-            else {
-                console.log({ "error": "getResult is fail." });
-                return { "error": " setResult is fails" };
-            }
-        }
-        else {
-            this.setResult(verbName, result, extension);
-            return this._result;
-        }
-    };
-    navigationProfile.prototype.setResult = function (verbName, result, extension) {
+    /**
+     * set property
+     * + validation 후 result property 구성
+     * @param verbName
+     * @param result
+     * @param extension
+     * @returns boolean
+     */
+    NavigationProfile.prototype.setResult = function (verbName, result, extension) {
         var flag = false;
         var ext = {};
         if (!this.validateExtensionName(extension)) {
             return flag;
         }
         for (var key in extension) {
-            if (this.ResultExtensions.hasOwnProperty(key)) {
-                ext[this.ResultExtensions[key]] = extension[key];
+            if (this.resultExtensionsDict[0]['navigation'].hasOwnProperty(key)) {
+                ext[this.resultExtensionsDict[0]['navigation'][key]] = extension[key];
             }
         }
         if (result == undefined) {
@@ -884,30 +862,32 @@ var navigationProfile = /** @class */ (function () {
         flag = true;
         return flag;
     };
-    navigationProfile.prototype.validateContextName = function (extension) {
+    /**
+     * property validation
+     * + profile dictionary의 context에 존재 여부 validation
+     * @param extension
+     * @returns boolean
+     */
+    NavigationProfile.prototype.validateContextName = function (extension) {
         if (this.validateExtensionName(extension)) {
             return true;
         }
         return false;
     };
-    navigationProfile.prototype.getContext = function (extension) {
-        if (this.validateContextName(extension)) {
-            this.setContext(extension);
-            return this._context;
-        }
-        else {
-            console.log({ "error": "getContext is fail." });
-            return { 'error': 'getContext fail' };
-        }
-    };
-    navigationProfile.prototype.setContext = function (extension) {
+    /**
+     * set property
+     * + validation 후 context property 구성
+     * @param extension
+     * @returns boolean
+     */
+    NavigationProfile.prototype.setContext = function (extension) {
         var ext = {};
         if (!this.validateExtensionName(extension)) {
             return false;
         }
         for (var key in extension) {
-            if (this.ContextExtensions.hasOwnProperty(key)) {
-                ext[this.ContextExtensions[key]] = extension[key];
+            if (this.contextExtensionsDict[0]['navigation'].hasOwnProperty(key)) {
+                ext[this.contextExtensionsDict[0]['navigation'][key]] = extension[key];
             }
         }
         this._context = {
@@ -915,7 +895,13 @@ var navigationProfile = /** @class */ (function () {
         };
         return true;
     };
-    navigationProfile.prototype.validateExtensionName = function (extensions) {
+    /**
+     * property validation
+     * + profile dictionary의 extension에 존재 여부 validation
+     * @param extensions
+     * @returns boolean
+     */
+    NavigationProfile.prototype.validateExtensionName = function (extensions) {
         var flag = true;
         //result extention
         if (extensions.hasOwnProperty("current-index")) {
@@ -929,10 +915,10 @@ var navigationProfile = /** @class */ (function () {
             }
         }
         if (extensions.hasOwnProperty("view-started-time")) {
-            extensions["view-started-time"] = extensions["view-started-time"].toISOString();
+            extensions["view-started-time"] = new Date(extensions["view-started-time"]).toISOString();
         }
         if (extensions.hasOwnProperty("view-ended-time")) {
-            extensions["view-ended-time"] = extensions["view-ended-time"].toISOString();
+            extensions["view-ended-time"] = new Date(extensions["view-ended-time"]).toISOString();
         }
         //context extention
         if (extensions.hasOwnProperty("target-id")) {
@@ -967,209 +953,198 @@ var navigationProfile = /** @class */ (function () {
         }
         return flag;
     };
-    navigationProfile.prototype.getCurrentVerb = function () {
+    /**
+     * property return
+     * + verb property return
+     * @returns _verb
+     */
+    NavigationProfile.prototype.getCurrentVerb = function () {
         return this._verb;
     };
-    navigationProfile.prototype.getCurrentActivity = function () {
+    /**
+     * property return
+     * + activity property return
+     * @returns _activity
+     */
+    NavigationProfile.prototype.getCurrentActivity = function () {
         return this._activity;
     };
-    navigationProfile.prototype.getCurrentResult = function () {
+    /**
+     * property return
+     * + result property return
+     * @returns _result
+     */
+    NavigationProfile.prototype.getCurrentResult = function () {
         return this._result;
     };
-    navigationProfile.prototype.getCurrentContext = function () {
+    /**
+     * property return
+     * + context property return
+     * @returns _context
+     */
+    NavigationProfile.prototype.getCurrentContext = function () {
         return this._context;
     };
-    navigationProfile.prototype.getCurrentResultExtension = function () {
+    /**
+     * property return
+     * + result extension property return
+     * @returns result extension
+     */
+    NavigationProfile.prototype.getCurrentResultExtension = function () {
         return this._result["extensions"];
     };
-    navigationProfile.prototype.getCurrentContextExtension = function () {
+    /**
+     * property return
+     * + context extension property return
+     * @returns context extension
+     */
+    NavigationProfile.prototype.getCurrentContextExtension = function () {
         return this._context["extensions"];
     };
-    navigationProfile.prototype.setContextExtension = function (extension) {
-        return true;
-    };
-    navigationProfile.prototype.validateProfile = function (profile) {
+    /**
+     * property validation
+     * + result와 context property의 extension에 대한 validation
+     * @param profile
+     * @returns boolean
+     */
+    NavigationProfile.prototype.validateProfile = function (profile) {
         var verb = profile.verb.id;
         var result = profile.result;
         var context = profile.context;
         var flag = false;
         switch (verb) {
-            case this.VerbDic["moved-to"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"])) {
+            case this.verbDict[0]['navigation']["moved-to"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["next"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["referrer-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["referrer-type"])) {
+            case this.verbDict[0]['navigation']["next"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["referrer-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["referrer-type"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["previous"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["referrer-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["referrer-type"])) {
+            case this.verbDict[0]['navigation']["previous"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["referrer-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["referrer-type"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["clicked"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"])) {
+            case this.verbDict[0]['navigation']["clicked"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["viewed"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"])) {
+            case this.verbDict[0]['navigation']["viewed"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["popped-up"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["referrer-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["referrer-type"])) {
+            case this.verbDict[0]['navigation']["popped-up"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["referrer-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["referrer-type"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["opened"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"])) {
+            case this.verbDict[0]['navigation']["opened"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["closed"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["target-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["target-type"])) {
+            case this.verbDict[0]['navigation']["closed"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['navigation']["target-type"])) {
                     flag = true;
                 }
                 return flag;
         }
     };
-    navigationProfile.prototype.setDuration = function (startDate, endDate) {
+    /**
+     * Set duration
+     * + duration 계산 (ISO8601 기준)
+     * @returns duration
+     */
+    NavigationProfile.prototype.setDuration = function (startDate, endDate) {
         var start = new Date(startDate).getTime();
         var end = new Date(endDate).getTime();
         var duration = Math.abs(((start - end) / 1000)).toFixed(3);
         return "PT" + duration + "S";
     };
-    return navigationProfile;
-}());
-exports.navigationProfile = navigationProfile;
+    return NavigationProfile;
+}(xAPIProfile_1.xAPIProfile));
+exports.NavigationProfile = NavigationProfile;
 
 
 /***/ }),
 
-/***/ 815:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 645:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 exports.__esModule = true;
-exports.sessionProfile = void 0;
-var sessionProfile = /** @class */ (function () {
-    function sessionProfile() {
-        this.VerbDic = {
-            "logged-in": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/logged-in",
-                "display": {
-                    "en-US": "logged-in"
-                }
-            },
-            "logged-out": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/logged-out",
-                "display": {
-                    "en-US": "logged-out"
-                }
-            },
-            "timed-out": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/timed-out",
-                "display": {
-                    "en-US": "timed-out"
-                }
-            },
-            "paused": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/paused",
-                "display": {
-                    "en-US": "paused"
-                }
-            },
-            "resumed": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/resumed",
-                "display": {
-                    "en-US": "resumed"
-                }
-            },
-            "attempted": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/attempted",
-                "display": {
-                    "en-US": "attempted"
-                }
-            },
-            "entered": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/entered",
-                "display": {
-                    "en-US": "entered"
-                }
-            },
-            "leaved": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/leaved",
-                "display": {
-                    "en-US": "leaved"
-                }
-            },
-            "attended": {
-                "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/attended",
-                "display": {
-                    "en-US": "attended"
-                }
-            }
-        };
-        this.ActivityNames = {
-            "software-application": {
-                "type": "https://ubion.co.kr/xapi/activity-type/software-application",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/software-application/info"
-            },
-            "group-activity": {
-                "type": "https://ubion.co.kr/xapi/activity-type/group-activity",
-                "moreInfo": "https://ubion.co.kr/xapi/activity-type/group-activity/info"
-            }
-        };
-        this.ResultExtensions = {
-            "attempt-count": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attempt-count",
-            "attended-time": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attended-time",
-            "attended-reason": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attended-reason",
-            "leaved-reason": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/leaved-reason"
-        };
-        this.ContextExtensions = {
-            "session-id": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/session-id",
-            "started-time": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/started-time",
-            "ended-time": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/ended-time",
-            "user-agent": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/user-agent",
-            "ip-address": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/ip-address",
-            "host": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/host"
-        };
+exports.SessionProfile = void 0;
+var xAPIProfile_1 = __webpack_require__(248);
+/**
+ * session profile
+ * + verb, activity, result, context, extension property에 대한 validation 처리
+ * + validation 후 verb, activty, result, context, extension property 구성
+ */
+var SessionProfile = /** @class */ (function (_super) {
+    __extends(SessionProfile, _super);
+    function SessionProfile() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.verbDict = _this.dict.verb.filter(function (data) { return data.hasOwnProperty('session'); });
+        _this.activityDict = _this.dict.activityNames.filter(function (data) { return data.hasOwnProperty('session'); });
+        _this.resultExtensionsDict = _this.dict.extensions.result.filter(function (data) { return data.hasOwnProperty('session'); });
+        _this.contextExtensionsDict = _this.dict.extensions.context.filter(function (data) { return data.hasOwnProperty('session'); });
+        return _this;
     }
-    sessionProfile.prototype.validateVerbName = function (verbName) {
-        return this.VerbDic.hasOwnProperty(verbName);
+    /**
+     * property validation
+     * + verb property validation
+     * + profile dictionary의 verb에 존재 여부 validation
+     * @param verbName
+     * @returns boolean
+     */
+    SessionProfile.prototype.validateVerbName = function (verbName) {
+        return this.verbDict[0]['session'].hasOwnProperty(verbName);
     };
-    sessionProfile.prototype.getVerb = function (verbName) {
-        if (this.validateVerbName(verbName.toLowerCase())) {
-            this.setVerb(verbName);
-            return this._verb;
-        }
-        else {
-            console.log({ "error": "setVerb is fail." });
-            return { "error": "getVerb is fail." };
-        }
-    };
-    sessionProfile.prototype.setVerb = function (verbName) {
-        if (this.VerbDic[verbName].id !== '' || undefined && this.VerbDic[verbName].display !== '' || undefined) {
+    /**
+     * set property
+     * + validation 후 verb property 구성
+     * @param verbName
+     * @returns boolean
+     */
+    SessionProfile.prototype.setVerb = function (verbName) {
+        if (this.verbDict[0]['session'][verbName].id !== '' || undefined && this.verbDict[0]['session'][verbName].display !== '' || undefined) {
             this._verb = {
-                id: this.VerbDic[verbName].id,
-                display: this.VerbDic[verbName].display
+                id: this.verbDict[0]['session'][verbName].id,
+                display: this.verbDict[0]['session'][verbName].display
             };
             return true;
         }
@@ -1178,27 +1153,40 @@ var sessionProfile = /** @class */ (function () {
             return false;
         }
     };
-    sessionProfile.prototype.validateActivityName = function (objectActivityName) {
-        return this.ActivityNames.hasOwnProperty(objectActivityName.toLocaleLowerCase());
+    /**
+     * property validation
+     * + activity property validation
+     * + profile dictionary의 activity에 존재 여부 validation
+     * @param objectActivityName
+     * @returns boolean
+     */
+    SessionProfile.prototype.validateActivityName = function (objectActivityName) {
+        return this.activityDict[0]['session'].hasOwnProperty(objectActivityName.toLocaleLowerCase());
     };
-    sessionProfile.prototype.getActivity = function (objectActivityName, objectID, definitionName, description) {
-        if (this.validateActivityName(objectActivityName)) {
-            this.setActivity(objectActivityName, objectID, definitionName, description);
-            return this._activity;
-        }
-        else {
-            console.log({ "error": "getActivity is fail." });
-            return { "error": "getActivity is fail" };
-        }
-    };
-    sessionProfile.prototype.setActivity = function (objectActivityName, objectID, definitionName, description) {
+    /**
+     * set property
+     * + validation 후 activity property 구성
+     * @param objectActivityName
+     * @param objectID
+     * @param definitionName
+     * @param description
+     * @returns boolean
+     */
+    SessionProfile.prototype.setActivity = function (objectActivityName, objectID, definitionName, description) {
         objectActivityName = objectActivityName.toLowerCase();
         objectID = objectID;
         var objectType = "Activity";
         if (this.validateActivityName(objectActivityName)) {
             if (definitionName != {} || definitionName != undefined || definitionName != '') {
-                if (description == {}) {
-                    return false;
+                if (Object.keys(description).length === 0) {
+                    this._activity = {
+                        id: objectID,
+                        objectType: objectType,
+                        definition: {
+                            name: definitionName,
+                            type: this.activityDict[0]['session'][objectActivityName].type
+                        }
+                    };
                 }
                 else {
                     this._activity = {
@@ -1206,21 +1194,11 @@ var sessionProfile = /** @class */ (function () {
                         objectType: objectType,
                         definition: {
                             name: definitionName,
-                            type: this.ActivityNames[objectActivityName].type
+                            type: this.activityDict[0]['session'][objectActivityName].type,
+                            description: description
                         }
                     };
                 }
-            }
-            else {
-                this._activity = {
-                    id: objectID,
-                    objectType: objectType,
-                    definition: {
-                        name: definitionName,
-                        type: this.ActivityNames[objectActivityName].type,
-                        description: description
-                    }
-                };
             }
             return true;
         }
@@ -1229,35 +1207,33 @@ var sessionProfile = /** @class */ (function () {
             return false;
         }
     };
-    sessionProfile.prototype.validateResult = function (result) {
+    /**
+     * property validation
+     * + profile dictionary의 result에 존재 여부 validation
+     * @param result
+     * @returns boolean
+     */
+    SessionProfile.prototype.validateResult = function (result) {
         var flag = true;
         return flag;
     };
-    sessionProfile.prototype.getResult = function (verbName, result, extension) {
-        if (result != undefined) {
-            if (this.validateResult(result)) {
-                this.setResult(verbName.toLocaleLowerCase(), result, extension);
-                return this._result;
-            }
-            else {
-                console.log({ "error": "getResult is fail." });
-                return { "error": " setResult is fails" };
-            }
-        }
-        else {
-            this.setResult(verbName, result, extension);
-            return this._result;
-        }
-    };
-    sessionProfile.prototype.setResult = function (verbName, result, extension) {
+    /**
+     * set property
+     * + validation 후 result property 구성
+     * @param verbName
+     * @param result
+     * @param extension
+     * @returns boolean
+     */
+    SessionProfile.prototype.setResult = function (verbName, result, extension) {
         var flag = false;
         var ext = {};
         if (!this.validateExtensionName(extension)) {
             return flag;
         }
         for (var key in extension) {
-            if (this.ResultExtensions.hasOwnProperty(key)) {
-                ext[this.ResultExtensions[key]] = extension[key];
+            if (this.resultExtensionsDict[0]['session'].hasOwnProperty(key)) {
+                ext[this.resultExtensionsDict[0]['session'][key]] = extension[key];
             }
         }
         if (result == undefined) {
@@ -1268,30 +1244,32 @@ var sessionProfile = /** @class */ (function () {
         flag = true;
         return flag;
     };
-    sessionProfile.prototype.validateContextName = function (extension) {
+    /**
+     * property validation
+     * + profile dictionary의 context에 존재 여부 validation
+     * @param extension
+     * @returns boolean
+     */
+    SessionProfile.prototype.validateContextName = function (extension) {
         if (this.validateExtensionName(extension)) {
             return true;
         }
         return false;
     };
-    sessionProfile.prototype.getContext = function (extension) {
-        if (this.validateContextName(extension)) {
-            this.setContext(extension);
-            return this._context;
-        }
-        else {
-            console.log({ "error": "getContext is fail." });
-            return { 'error': 'getContext fail' };
-        }
-    };
-    sessionProfile.prototype.setContext = function (extension) {
+    /**
+     * set property
+     * + validation 후 context property 구성
+     * @param extension
+     * @returns boolean
+     */
+    SessionProfile.prototype.setContext = function (extension) {
         var ext = {};
         if (!this.validateExtensionName(extension)) {
             return false;
         }
         for (var key in extension) {
-            if (this.ContextExtensions.hasOwnProperty(key)) {
-                ext[this.ContextExtensions[key]] = extension[key];
+            if (this.contextExtensionsDict[0]['session'].hasOwnProperty(key)) {
+                ext[this.contextExtensionsDict[0]['session'][key]] = extension[key];
             }
         }
         this._context = {
@@ -1299,7 +1277,13 @@ var sessionProfile = /** @class */ (function () {
         };
         return true;
     };
-    sessionProfile.prototype.validateExtensionName = function (extensions) {
+    /**
+     * property validation
+     * + profile dictionary의 extension에 존재 여부 validation
+     * @param extensions
+     * @returns boolean
+     */
+    SessionProfile.prototype.validateExtensionName = function (extensions) {
         var flag = true;
         //result extention
         if (extensions.hasOwnProperty("attempt-count")) {
@@ -1355,87 +1339,523 @@ var sessionProfile = /** @class */ (function () {
         }
         return flag;
     };
-    sessionProfile.prototype.getCurrentVerb = function () {
+    /**
+     * property return
+     * + verb property return
+     * @returns _verb
+     */
+    SessionProfile.prototype.getCurrentVerb = function () {
         return this._verb;
     };
-    sessionProfile.prototype.getCurrentActivity = function () {
+    /**
+     * property return
+     * + activity property return
+     * @returns _activity
+     */
+    SessionProfile.prototype.getCurrentActivity = function () {
         return this._activity;
     };
-    sessionProfile.prototype.getCurrentResult = function () {
+    /**
+     * property return
+     * + result property return
+     * @returns _result
+     */
+    SessionProfile.prototype.getCurrentResult = function () {
         return this._result;
     };
-    sessionProfile.prototype.getCurrentContext = function () {
+    /**
+     * property return
+     * + context property return
+     * @returns _context
+     */
+    SessionProfile.prototype.getCurrentContext = function () {
         return this._context;
     };
-    sessionProfile.prototype.getCurrentResultExtension = function () {
+    /**
+     * property return
+     * + result extension property return
+     * @returns result extension
+     */
+    SessionProfile.prototype.getCurrentResultExtension = function () {
         return this._result["extension"];
     };
-    sessionProfile.prototype.getCurrentContextExtension = function () {
+    /**
+     * property return
+     * + context extension property return
+     * @returns context extension
+     */
+    SessionProfile.prototype.getCurrentContextExtension = function () {
         return this._context["extension"];
     };
-    sessionProfile.prototype.setContextExtension = function (extension) {
-        return true;
-    };
-    sessionProfile.prototype.validateProfile = function (profile) {
+    /**
+     * property validation
+     * + result와 context property의 extension에 대한 validation
+     * @param profile
+     * @returns boolean
+     */
+    SessionProfile.prototype.validateProfile = function (profile) {
         var verb = profile.verb.id;
         var result = profile.result;
         var context = profile.context;
         var flag = false;
         switch (verb) {
-            case this.VerbDic["logged-in"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["session-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["started-time"])) {
+            case this.verbDict[0]['session']["logged-in"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["session-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["started-time"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["logged-out"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["session-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["ended-time"])) {
+            case this.verbDict[0]['session']["logged-out"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["session-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["ended-time"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["timed-out"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["session-id"])) {
+            case this.verbDict[0]['session']["timed-out"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["session-id"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["paused"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["session-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["ended-time"])) {
+            case this.verbDict[0]['session']["paused"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["session-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["ended-time"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["resumed"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["session-id"]) &&
-                    context["extensions"].hasOwnProperty(this.ContextExtensions["started-time"])) {
+            case this.verbDict[0]['session']["resumed"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["session-id"]) &&
+                    context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["started-time"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["attempted"].id:
-                if (result["extensions"].hasOwnProperty(this.ResultExtensions["attempt-count"])) {
+            case this.verbDict[0]['session']["attempted"].id:
+                if (result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['session']["attempt-count"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["entered"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["started-time"])) {
+            case this.verbDict[0]['session']["entered"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["started-time"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["leaved"].id:
-                if (context["extensions"].hasOwnProperty(this.ContextExtensions["ended-time"])) {
+            case this.verbDict[0]['session']["leaved"].id:
+                if (context["extensions"].hasOwnProperty(this.contextExtensionsDict[0]['session']["ended-time"])) {
                     flag = true;
                 }
                 return flag;
-            case this.VerbDic["attended"].id:
-                if (result["extensions"].hasOwnProperty(this.ResultExtensions["attended-time"])) {
+            case this.verbDict[0]['session']["attended"].id:
+                if (result["extensions"].hasOwnProperty(this.resultExtensionsDict[0]['session']["attended-time"])) {
                     flag = true;
                 }
                 return flag;
         }
     };
-    return sessionProfile;
+    return SessionProfile;
+}(xAPIProfile_1.xAPIProfile));
+exports.SessionProfile = SessionProfile;
+
+
+/***/ }),
+
+/***/ 428:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+exports.__esModule = true;
+exports.xAPIDictionary = void 0;
+/**
+ * verb별 profile dictionary
+ * + verb, activity, result extensions, context extensions로 구성
+ */
+var xAPIDictionary = /** @class */ (function () {
+    function xAPIDictionary() {
+        this.verb = [
+            {
+                "media": {
+                    "initialized": {
+                        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/initialized",
+                        "display": {
+                            "en-US": "initialized"
+                        }
+                    },
+                    "played": {
+                        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/played",
+                        "display": {
+                            "en-US": "played"
+                        }
+                    },
+                    "paused": {
+                        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/paused",
+                        "display": {
+                            "en-US": "paused"
+                        }
+                    },
+                    "seeked": {
+                        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/seeked",
+                        "display": {
+                            "en-US": "seeked"
+                        }
+                    },
+                    "completed": {
+                        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/completed",
+                        "display": {
+                            "en-US": "completed"
+                        }
+                    },
+                    "terminated": {
+                        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/terminated",
+                        "display": {
+                            "en-US": "terminated"
+                        }
+                    },
+                    "interacted": {
+                        "id": "https://ubion.co.kr/xapi/profiles/media/1.0/verbs/interacted",
+                        "display": {
+                            "en-US": "interacted"
+                        }
+                    }
+                }
+            },
+            {
+                "session": {
+                    "logged-in": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/logged-in",
+                        "display": {
+                            "en-US": "logged-in"
+                        }
+                    },
+                    "logged-out": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/logged-out",
+                        "display": {
+                            "en-US": "logged-out"
+                        }
+                    },
+                    "timed-out": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/timed-out",
+                        "display": {
+                            "en-US": "timed-out"
+                        }
+                    },
+                    "paused": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/paused",
+                        "display": {
+                            "en-US": "paused"
+                        }
+                    },
+                    "resumed": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/resumed",
+                        "display": {
+                            "en-US": "resumed"
+                        }
+                    },
+                    "attempted": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/attempted",
+                        "display": {
+                            "en-US": "attempted"
+                        }
+                    },
+                    "entered": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/entered",
+                        "display": {
+                            "en-US": "entered"
+                        }
+                    },
+                    "leaved": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/leaved",
+                        "display": {
+                            "en-US": "leaved"
+                        }
+                    },
+                    "attended": {
+                        "id": "https://ubion.co.kr/xapi/profiles/session/1.0/verbs/attended",
+                        "display": {
+                            "en-US": "attended"
+                        }
+                    }
+                }
+            },
+            {
+                "navigation": {
+                    "moved-to": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/moved-to",
+                        "display": {
+                            "en-US": "moved-to"
+                        }
+                    },
+                    "next": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/next",
+                        "display": {
+                            "en-US": "next"
+                        }
+                    },
+                    "previous": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/previous",
+                        "display": {
+                            "en-US": "previous"
+                        }
+                    },
+                    "clicked": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/clicked",
+                        "display": {
+                            "en-US": "clicked"
+                        }
+                    },
+                    "viewed": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/viewed",
+                        "display": {
+                            "en-US": "viewed"
+                        }
+                    },
+                    "popped-up": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/popped-up",
+                        "display": {
+                            "en-US": "popped-up"
+                        }
+                    },
+                    "opened": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/opened",
+                        "display": {
+                            "en-US": "opened"
+                        }
+                    },
+                    "closed": {
+                        "id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/verbs/closed",
+                        "display": {
+                            "en-US": "closed"
+                        }
+                    }
+                }
+            }
+        ];
+        this.activityNames = [
+            {
+                "media": {
+                    "video": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/video",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/video/info"
+                    },
+                    "audio": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/audio",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/audio/info"
+                    }
+                }
+            },
+            {
+                "session": {
+                    "software-application": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/software-application",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/software-application/info"
+                    },
+                    "group-activity": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/group-activity",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/group-activity/info"
+                    }
+                }
+            },
+            {
+                "navigation": {
+                    "document": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/document",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/document/info"
+                    },
+                    "webpage": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/webpage",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/webpage/info"
+                    },
+                    "menu": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/menu",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/menu/info"
+                    },
+                    "toc": {
+                        "type": "https://ubion.co.kr/xapi/activity-type/toc",
+                        "moreInfo": "https://ubion.co.kr/xapi/activity-type/toc/info"
+                    }
+                }
+            }
+        ];
+        this.extensions = {
+            "result": [
+                {
+                    "media": {
+                        "time": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time",
+                        "time-from": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time-from",
+                        "time-to": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/time-to",
+                        "progress": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/progress",
+                        "played-segments": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/result/played-segments"
+                    }
+                },
+                {
+                    "session": {
+                        "attempt-count": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attempt-count",
+                        "attended-time": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attended-time",
+                        "attended-reason": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/attended-reason",
+                        "leaved-reason": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/result/leaved-reason"
+                    }
+                },
+                {
+                    "navigation": {
+                        "current-index": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/current-index",
+                        "total-index": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/total-index",
+                        "view-started-time": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/view-started-time",
+                        "view-ended-time": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/result/view-ended-time"
+                    }
+                }
+            ],
+            "context": [
+                {
+                    "media": {
+                        "media-session-id": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/media-session-id",
+                        "cc-subtitle-enabled": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/cc-subtitle-enabled",
+                        "cc-subtitle-lang": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/cc-subbtitle-lang",
+                        "frame-rate": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/frame-rate",
+                        "full-screen": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/full-screen",
+                        "quality": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/quality",
+                        "screen-size": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/screen-size",
+                        "video-playback-size": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/video-playback-size",
+                        "speed": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/speed",
+                        "track": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/track",
+                        "user-agent": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/user-agent",
+                        "volume": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/volume",
+                        "length": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/length",
+                        "completion-threshold": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/completion-threshold",
+                        "tag": "https://ubion.co.kr/xapi/profiles/media/1.0/extensions/context/tag"
+                    }
+                },
+                {
+                    "session": {
+                        "session-id": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/session-id",
+                        "started-time": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/started-time",
+                        "ended-time": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/ended-time",
+                        "user-agent": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/user-agent",
+                        "ip-address": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/ip-address",
+                        "host": "https://ubion.co.kr/xapi/profiles/session/1.0/extensions/context/host"
+                    }
+                },
+                {
+                    "navigation": {
+                        "target-id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-id",
+                        "target-type": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-type",
+                        "target-name": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/target-name",
+                        "referrer-id": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-id",
+                        "referrer-type": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-type",
+                        "referrer-name": "https://ubion.co.kr/xapi/profiles/navigation/1.0/extensions/context/referrer-name"
+                    }
+                }
+            ]
+        };
+    }
+    return xAPIDictionary;
 }());
-exports.sessionProfile = sessionProfile;
+exports.xAPIDictionary = xAPIDictionary;
+
+
+/***/ }),
+
+/***/ 248:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+exports.__esModule = true;
+exports.xAPIProfile = void 0;
+var xAPIDictionary_1 = __webpack_require__(428);
+/**
+ * XapiProfile class
+ * extend only
+ */
+var xAPIProfile = /** @class */ (function () {
+    function xAPIProfile() {
+        /** XAPI NAMESPACE DICTIONARY */
+        this.dict = new xAPIDictionary_1.xAPIDictionary();
+    }
+    /**
+     * Get Verb
+     * + profile dictionary에 해당 verb의 property가 있는지 validation
+     * + validation 후 setVerb를 호출하여 verb property 구성
+     * @param verbName Verb name
+     * @returns _verb or error object
+     */
+    xAPIProfile.prototype.getVerb = function (verbName) {
+        if (this.validateVerbName(verbName.toLowerCase())) {
+            this.setVerb(verbName.toLowerCase());
+            return this._verb;
+        }
+        else {
+            console.log({ "error": "setVerb is fail." });
+            return { "error": "getVerb is fail." };
+        }
+    };
+    /**
+     * Get Activity
+     * + profile dictionary에 해당 activity의 property가 있는지 validation
+     * + validation 후 setActivity를 호출하여 activity property 구성
+     * @param objectActivityName Activity Name ex) audio video
+     * @param objectId obejct Id ex) https://example.com/videos/b6a98d52-1e52-4d45-a14t-a15f97e63d25
+     * @param definitionName ex) Ocean Life
+     * @param description ex) {"en-US":"some string awsome video"}
+     * @return _activity
+     */
+    xAPIProfile.prototype.getActivity = function (objectActivityName, objectId, definitionName, description) {
+        if (this.validateActivityName(objectActivityName)) {
+            this.setActivity(objectActivityName, objectId, definitionName, description);
+            return this._activity;
+        }
+        else {
+            console.log({ "error": "getActivity is fail." });
+            return { "error": "getActivity is fail" };
+        }
+    };
+    /**
+     * Get Result
+     * + profile dictionary에 해당 result의 property가 있는지 validation
+     * + validation 후 setResult를 호출하여 activity property 구성
+     * @param verbName verb name ex) played, initialized, etc...
+     * @param result result ex) score,completion,duration, etc...
+     * @param extension ex) length, time-from, time-to, etc...
+     * @return _result
+     */
+    xAPIProfile.prototype.getResult = function (verbName, result, extension) {
+        if (result != undefined) {
+            if (this.validateResult(result)) {
+                this.setResult(verbName.toLocaleLowerCase(), result, extension);
+                return this._result;
+            }
+            else {
+                console.log({ "error": "getResult is fail." });
+                return { "error": " setResult is fails" };
+            }
+        }
+        else {
+            this.setResult(verbName.toLocaleLowerCase(), result, extension);
+            return this._result;
+        }
+    };
+    /**
+     * Get Context
+     * + profile dictionary에 해당 context의 property가 있는지 validation
+     * + validation 후 setContext를 호출하여 activity property 구성
+     * @param extension extensions ex) time, time-to ,etc...
+     * @return _context
+     */
+    xAPIProfile.prototype.getContext = function (extension) {
+        if (this.validateContextName(extension)) {
+            this.setContext(extension);
+            return this._context;
+        }
+        else {
+            console.log({ "error": "getContext is fail." });
+            return { 'error': 'getContext fail' };
+        }
+    };
+    return xAPIProfile;
+}());
+exports.xAPIProfile = xAPIProfile;
+;
+;
+;
+;
+;
+;
+;
 
 
 /***/ }),
@@ -2112,7 +2532,7 @@ function version(uuid) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -2154,14 +2574,31 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 exports.__esModule = true;
-exports.XAPIBuilder = void 0;
-var mediaProfile_1 = __webpack_require__(850);
-var sessionProfile_1 = __webpack_require__(815);
-var navigationProfile_1 = __webpack_require__(402);
+exports.xAPIBuilder = void 0;
+var xAPIDictionary_1 = __webpack_require__(428);
+var MediaProfile_1 = __webpack_require__(788);
+var SessionProfile_1 = __webpack_require__(645);
+var NavigationProfile_1 = __webpack_require__(896);
 var uuid_1 = __webpack_require__(453);
-var config_1 = __webpack_require__(900);
-var XAPIBuilder = /** @class */ (function () {
-    function XAPIBuilder() {
+var Config_1 = __webpack_require__(905);
+/**
+ * XAPI Builder Class
+ *  하위 function별 기능 정의
+ *  + initializeXAPI : activity data 초기화 처리
+ *  + validateActivityData : activity data validation (필수값과 format 체크)
+ *  + setActor : XAPI의 actor property set
+ *  + setContext : XAPI의 context property set
+ *  + setXAPIData : profile별 action data set
+ *  + getProfile : profile별 객체 생성 및 관리, verb, activity, context, result property set
+ *  + validateActionData : action data validation (필수값과 format 체크)
+ *  + getStatement : statement set
+ *  + getConfigData : config data (LRS Connection info. 등) return
+ *  + getUuid : uuid 생성 및 return
+ *  + getStatementObj : set된 statement return
+ */
+var xAPIBuilder = /** @class */ (function () {
+    function xAPIBuilder() {
+        /** registration 초기 값 */
         this.registrationVal = uuid_1.v4();
         this.emailRegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         this.RET_CODE = [
@@ -2173,14 +2610,21 @@ var XAPIBuilder = /** @class */ (function () {
         ];
         this._profiles = [];
     }
-    XAPIBuilder.prototype.initializeXAPI = function (data) {
+    /**
+     * XAPI initialize
+     * + activity data validation
+     * + statement 데이터 중 actor와 context 구성
+     * @param data activity data
+     * @returns resultCode
+     */
+    xAPIBuilder.prototype.initializeXAPI = function (data) {
         try {
             if (data != null && data != {}) {
                 this.resultCode = this.RET_CODE[0];
                 this.resultCode = this.validateActivityData(data);
                 if (this.resultCode['code'] == 200) {
-                    this.setActor(data);
-                    this.setContext(data);
+                    this.setActor(data); // set actor Property
+                    this.setContext(data); // set context Property
                 }
             }
         }
@@ -2190,9 +2634,16 @@ var XAPIBuilder = /** @class */ (function () {
         }
         return this.resultCode;
     };
-    XAPIBuilder.prototype.validateActivityData = function (_activityData) {
-        var _this = this;
+    /**
+     * Activity Data Validation
+     * + required property에 대한 validation
+     * + property의 존재 여부와 format 체크
+     * @param data activity data
+     * @returns resultCode
+     */
+    xAPIBuilder.prototype.validateActivityData = function (_activityData) {
         var resultCode = this.RET_CODE[0];
+        /** actor Property Validation */
         if (!_activityData.hasOwnProperty('actor')) {
             resultCode = this.RET_CODE[1];
             resultCode['data'] = "parameter actor is missing";
@@ -2219,14 +2670,13 @@ var XAPIBuilder = /** @class */ (function () {
                 resultCode['data'] = "parameter actor.id format is mismatch";
             }
         }
+        /** Context instructor Property validation */
         if (_activityData.hasOwnProperty('instructor')) {
-            if (!this.emailRegExp.test(_activityData['instructor']['id']) && !/^[0-9a-f]{40}$/i.test(_activityData['instructor']['id']) && !/^http[s]?:/.test(_activityData['instructor']['id'])) {
-                resultCode = this.RET_CODE[2];
-                resultCode['data'] = "parameter instructor.id format is mismatch";
-            }
-            else if (!_activityData['instructor'].hasOwnProperty('id') && !_activityData['instructor'].hasOwnProperty('account')) {
-                resultCode = this.RET_CODE[1];
-                resultCode['data'] = "parameter instructor.id or instructor.account is missing";
+            if (_activityData['instructor'].hasOwnProperty('id')) {
+                if (!this.emailRegExp.test(_activityData['instructor']['id']) && !/^[0-9a-f]{40}$/i.test(_activityData['instructor']['id']) && !/^http[s]?:/.test(_activityData['instructor']['id'])) {
+                    resultCode = this.RET_CODE[2];
+                    resultCode['data'] = "parameter instructor.id format is mismatch";
+                }
             }
             else if (_activityData['instructor'].hasOwnProperty('account')) {
                 if (!_activityData['instructor']['account'].hasOwnProperty('homePage') || !_activityData['instructor']['account'].hasOwnProperty('name')) {
@@ -2240,66 +2690,87 @@ var XAPIBuilder = /** @class */ (function () {
                     }
                 }
             }
+            else {
+                resultCode = this.RET_CODE[1];
+                resultCode['data'] = "parameter instructor.id or instructor.account is missing";
+            }
         }
+        /** Context team Property validation */
         if (_activityData.hasOwnProperty('team')) {
             if (!_activityData['team'].hasOwnProperty('member')) {
                 resultCode = this.RET_CODE[1];
                 resultCode['data'] = "parameter team.member is missing";
             }
-            else if (_activityData['team']['member'].filter(function (data) { return !data.hasOwnProperty('id'); }).length > 0 && _activityData['team']['member'].filter(function (data) { return !data.hasOwnProperty('account'); }).length > 0) {
-                resultCode = this.RET_CODE[1];
-                resultCode['data'] = "parameter team.member.id or account is missing";
-            }
-            else if (_activityData['team']['member'].filter(function (data) { return data.hasOwnProperty('account'); }).length > 0) {
-                if (!_activityData['team']['member']['account'].hasOwnProperty('homePage') || !_activityData['team']['member']['account'].hasOwnProperty('name')) {
-                    resultCode = this.RET_CODE[1];
-                    resultCode['data'] = "parameter team.member.account.homePage or name is missing";
+            if (_activityData['team'].hasOwnProperty('member')) {
+                for (var item in _activityData['team']['member']) {
+                    if (!_activityData['team']['member'][item].hasOwnProperty('id') && !_activityData['team']['member'][item].hasOwnProperty('account')) {
+                        resultCode = this.RET_CODE[1];
+                        resultCode['data'] = "parameter team.member.id or team.member.account is missing";
+                    }
                 }
-                else if (_activityData['team']['member']['account']['homePage'].filter(function (data) { return !/^http[s]?:/.test(data); }) > 0) {
-                    resultCode = this.RET_CODE[2];
-                    resultCode['data'] = "parameter actor.account.homePage format is mismatch";
+                for (var item in _activityData['team']['member']) {
+                    if (!_activityData['team']['member'][item].hasOwnProperty('id') && _activityData['team']['member'][item].hasOwnProperty('account')) {
+                        if (!_activityData['team']['member'][item]['account'].hasOwnProperty('homePage') || !_activityData['team']['member'][item]['account'].hasOwnProperty('name')) {
+                            resultCode = this.RET_CODE[1];
+                            resultCode['data'] = "parameter team.member.account.homePage or name is missing";
+                        }
+                    }
                 }
-            }
-            else if (_activityData['team']['member'].filter(function (data) { return data.hasOwnProperty('id'); }).length > 0) {
-                if (!_activityData['team']['member'].filter(function (data) { return !_this.emailRegExp.test(data['id']); }) && _activityData['team']['member'].filter(function (data) { return !/^[0-9a-f]{40}$/i.test(data['id']); }) && _activityData['team']['member'].filter(function (data) { return !/^http[s]?:/.test(data['id']); })) {
-                    resultCode = this.RET_CODE[2];
-                    resultCode['data'] = "parameter team.member format is mismatch";
+                for (var item in _activityData['team']['member']) {
+                    if (_activityData['team']['member'][item].hasOwnProperty('id')) {
+                        if (!this.emailRegExp.test(_activityData['team']['member'][item]['id']) && !/^[0-9a-f]{40}$/i.test(_activityData['team']['member'][item]['id']) && !/^http[s]?:/.test(_activityData['team']['member'][item]['id'])) {
+                            resultCode = this.RET_CODE[2];
+                            resultCode['data'] = "parameter team.member format is mismatch";
+                        }
+                    }
                 }
             }
         }
+        /** Context parent Property validation */
         if (_activityData.hasOwnProperty('parent')) {
-            var parentLength = _activityData['parent'].length;
-            if (_activityData['parent'].filter(function (data) { return data.hasOwnProperty('id'); }).length !== parentLength || _activityData['parent'].filter(function (data) { return data.hasOwnProperty('name'); }).length !== parentLength) {
-                resultCode = this.RET_CODE[1];
-                resultCode['data'] = "parameter parent.id or parent.name is missing";
+            for (var item in _activityData['parent']) {
+                if (!_activityData['parent'][item].hasOwnProperty('id') || !_activityData['parent'][item].hasOwnProperty('name')) {
+                    resultCode = this.RET_CODE[1];
+                    resultCode['data'] = "parameter parent.id or parent.name is missing";
+                }
             }
         }
-        else if (_activityData.hasOwnProperty('grouping')) {
-            var groupingLength = _activityData['grouping'].length;
-            if (_activityData['grouping'].filter(function (data) { return data.hasOwnProperty('id'); }).length !== groupingLength || _activityData['grouping'].filter(function (data) { return data.hasOwnProperty('name'); }).length !== groupingLength) {
-                resultCode = this.RET_CODE[1];
-                resultCode['data'] = "parameter grouping.id or grouping.name is missing";
+        /** Context grouping Property validation */
+        if (_activityData.hasOwnProperty('grouping')) {
+            for (var item in _activityData['grouping']) {
+                if (!_activityData['grouping'][item].hasOwnProperty('id') || !_activityData['grouping'][item].hasOwnProperty('name')) {
+                    resultCode = this.RET_CODE[1];
+                    resultCode['data'] = "parameter grouping.id or grouping.name is missing";
+                }
             }
         }
-        else if (_activityData.hasOwnProperty('category')) {
-            var categoryLength = _activityData['category'].length;
-            if (_activityData['category'].filter(function (data) { return data.hasOwnProperty('id'); }).length !== categoryLength || _activityData['category'].filter(function (data) { return data.hasOwnProperty('name'); }).length !== categoryLength) {
-                resultCode = this.RET_CODE[1];
-                resultCode['data'] = "parameter category.id or category.name is missing";
+        /** Context category Property validation */
+        if (_activityData.hasOwnProperty('category')) {
+            for (var item in _activityData['category']) {
+                if (!_activityData['category'][item].hasOwnProperty('id') || !_activityData['category'][item].hasOwnProperty('name')) {
+                    resultCode = this.RET_CODE[1];
+                    resultCode['data'] = "parameter category.id or category.name is missing";
+                }
             }
         }
-        else if (_activityData.hasOwnProperty('other')) {
-            var otherLength = _activityData['other'].length;
-            if (_activityData['other'].filter(function (data) { return data.hasOwnProperty('id'); }).length !== otherLength || _activityData['other'].filter(function (data) { return data.hasOwnProperty('name'); }).length !== otherLength) {
-                resultCode = this.RET_CODE[1];
-                resultCode['data'] = "parameter other.id or other.name is missing";
+        /** Context other Property validation */
+        if (_activityData.hasOwnProperty('other')) {
+            for (var item in _activityData['other']) {
+                if (!_activityData['other'][item].hasOwnProperty('id') || !_activityData['other'][item].hasOwnProperty('name')) {
+                    resultCode = this.RET_CODE[1];
+                    resultCode['data'] = "parameter other.id or other.name is missing";
+                }
             }
         }
         this._activityData = _activityData;
         return resultCode;
     };
-    XAPIBuilder.prototype.setActor = function (_activityData) {
-        var _this = this;
+    /**
+     * statement의 actor property 구성
+     * + validation 처리 후 activity data로 actor property set
+     * @param _activityData
+     */
+    xAPIBuilder.prototype.setActor = function (_activityData) {
         var key = "";
         var value = "";
         var account = {};
@@ -2311,6 +2782,7 @@ var XAPIBuilder = /** @class */ (function () {
         };
         var actorNameValue = _activityData['actor']['name'];
         this._actor['name'] = actorNameValue;
+        /** set actor id Property */
         if (_activityData['actor'].hasOwnProperty('id')) {
             if (this.emailRegExp.test(_activityData['actor']['id'])) {
                 value = "mailto:" + _activityData['actor']['id'];
@@ -2324,52 +2796,58 @@ var XAPIBuilder = /** @class */ (function () {
                 value = _activityData['actor']['id'];
                 this._actor['openid'] = value;
             }
+            /** set actor account Property */
         }
         else if (_activityData['actor'].hasOwnProperty('account')) {
             key = "account";
             account = _activityData['actor']['account'];
             this._actor[key] = account;
         }
+        /** set actor team Property */
         if (_activityData['actor'].hasOwnProperty('team')) {
             this._actor['objectType'] = "Group";
-            _activityData['actor']['team']['member'].forEach(function (item) {
+            for (var item in _activityData['actor']['team']['member']) {
                 memberObj = {
                     name: {}
                 };
                 memberObj['objectType'] = "Agent";
-                if (item.hasOwnProperty('id')) {
+                if (_activityData['actor']['team']['member'][item].hasOwnProperty('id')) {
                     var teamMemberNamevalue = item['name'];
-                    if (_this.emailRegExp.test(item['id'])) {
-                        value = "mailto:" + item['id'];
+                    if (this.emailRegExp.test(_activityData['actor']['team']['member'][item]['id'])) {
+                        value = "mailto:" + _activityData['actor']['team']['member'][item]['id'];
                         memberObj['mbox'] = value;
                         memberObj['name'] = teamMemberNamevalue;
                     }
-                    else if (/^[0-9a-f]{40}$/i.test(item['id'])) {
-                        value = item['id'];
+                    else if (/^[0-9a-f]{40}$/i.test(_activityData['actor']['team']['member'][item]['id'])) {
+                        value = _activityData['actor']['team']['member'][item]['id'];
                         memberObj['mbox_sha1sum'] = value;
                         memberObj['name'] = teamMemberNamevalue;
                     }
                     else if (/^http[s]?:/.test('id')) {
-                        value = item['id'];
+                        value = _activityData['actor']['team']['member'][item]['id'];
                         memberObj['openid'] = value;
                         memberObj['name'] = teamMemberNamevalue;
                     }
                 }
-                else if (item.hasOwnProperty('account')) {
-                    var accountNameValue = item['account']['name'];
+                else if (_activityData['actor']['team']['member'][item].hasOwnProperty('account')) {
+                    var accountNameValue = _activityData['actor']['team']['member'][item]['account']['name'];
                     key = "account";
-                    account = item['account'];
+                    account = _activityData['actor']['team']['member'][item]['account'];
                     memberObj[key] = account;
                     memberObj['name'] = accountNameValue;
                 }
                 memberArray.push(memberObj);
-            });
+            }
             key = "member";
             this._actor[key] = memberArray;
         }
     };
-    XAPIBuilder.prototype.setContext = function (_activityData) {
-        var _this = this;
+    /**
+     * statement의 context property 구성
+     * + validation 처리 후 activity data로 context property set
+     * @param _activityData
+     */
+    xAPIBuilder.prototype.setContext = function (_activityData) {
         var key = "";
         var value = "";
         var account = {};
@@ -2379,12 +2857,14 @@ var XAPIBuilder = /** @class */ (function () {
         var memberObj = {};
         var contextActivitiesObj = {};
         this._context = {};
+        /** sessionId가 있는 경우 registration data를 sessionId로 교체 */
         if (!_activityData.hasOwnProperty('sessionId')) {
             this._context['registration'] = this.registrationVal;
         }
         else {
             this._context['registration'] = _activityData['sessionId'];
         }
+        /** set context instructor Property */
         if (_activityData.hasOwnProperty('instructor')) {
             instructorObj = {
                 objectType: "Agent",
@@ -2416,6 +2896,7 @@ var XAPIBuilder = /** @class */ (function () {
             key = "instructor";
             this._context[key] = instructorObj;
         }
+        /** set context team Property */
         if (_activityData.hasOwnProperty('team')) {
             teamObj = {
                 objectType: "Group",
@@ -2423,51 +2904,53 @@ var XAPIBuilder = /** @class */ (function () {
             };
             var teamNameValue = _activityData['team']['name'];
             teamObj['name'] = teamNameValue;
-            _activityData['team']['member'].forEach(function (item) {
+            for (var item in _activityData['team']['member']) {
                 memberObj = {
                     name: {}
                 };
-                var teamMemberNameValue = item['name'];
-                if (item.hasOwnProperty('id')) {
-                    if (_this.emailRegExp.test(item['id'])) {
-                        value = "mailto:" + item['id'];
+                var teamMemberNameValue = _activityData['team']['member'][item]['name'];
+                if (_activityData['team']['member'][item].hasOwnProperty('id')) {
+                    if (this.emailRegExp.test(_activityData['team']['member'][item]['id'])) {
+                        value = "mailto:" + _activityData['team']['member'][item]['id'];
                         memberObj['mbox'] = value;
                         memberObj['name'] = teamMemberNameValue;
                     }
-                    else if (/^[0-9a-f]{40}$/i.test(item['id'])) {
-                        value = item['id'];
+                    else if (/^[0-9a-f]{40}$/i.test(_activityData['team']['member'][item]['id'])) {
+                        value = _activityData['team']['member'][item]['id'];
                         memberObj['mbox_sha1sum'] = value;
                         memberObj['name'] = teamMemberNameValue;
                     }
                     else {
-                        value = item['id'];
+                        value = _activityData['team']['member'][item]['id'];
                         memberObj['openid'] = value;
                         memberObj['name'] = teamMemberNameValue;
                     }
                 }
-                else if (item.hasOwnProperty('account')) {
-                    var accountNameKey = item['name']['language'];
-                    var accountNameValue = item['name']['value'];
+                else if (_activityData['team']['member'][item].hasOwnProperty('account')) {
+                    var accountNameKey = _activityData['team']['member'][item]['name']['language'];
+                    var accountNameValue = _activityData['team']['member'][item]['name']['value'];
                     key = "account";
-                    account = item['account'];
+                    account = _activityData['team']['member'][item]['account'];
                     memberObj[key] = account;
                     memberObj['name'][accountNameKey] = accountNameValue;
+                    memberObj['name'] = teamMemberNameValue;
                 }
                 memberArray.push(memberObj);
-            });
+            }
             teamObj['member'] = memberArray;
             key = "team";
             this._context[key] = teamObj;
         }
+        /** set context parent Property */
         if (_activityData.hasOwnProperty('parent')) {
-            var parentArray_1 = [];
-            _activityData['parent'].forEach(function (item) {
-                var parentNameKey = item['name']['language'];
-                var parentNameValue = item['name']['value'];
-                var parentDescriptionKey = item['description']['language'];
-                var parentDescriptionValue = item['description']['value'];
+            var parentArray = [];
+            for (var item in _activityData['parent']) {
+                var parentNameKey = _activityData['parent'][item]['name']['language'];
+                var parentNameValue = _activityData['parent'][item]['name']['value'];
+                var parentDescriptionKey = _activityData['parent'][item]['description']['language'];
+                var parentDescriptionValue = _activityData['parent'][item]['description']['value'];
                 var parentArrayObj = {
-                    id: item['id'],
+                    id: _activityData['parent'][item]['id'],
                     objectType: "Activity",
                     definition: {
                         name: {},
@@ -2476,20 +2959,21 @@ var XAPIBuilder = /** @class */ (function () {
                 };
                 parentArrayObj['definition']['name'][parentNameKey] = parentNameValue;
                 parentArrayObj['definition']['description'][parentDescriptionKey] = parentDescriptionValue;
-                parentArray_1.push(parentArrayObj);
-            });
+                parentArray.push(parentArrayObj);
+            }
             key = "parent";
-            contextActivitiesObj[key] = parentArray_1;
+            contextActivitiesObj[key] = parentArray;
         }
+        /** set context grouping Property */
         if (_activityData.hasOwnProperty('grouping')) {
-            var groupingArray_1 = [];
-            _activityData['grouping'].forEach(function (item) {
-                var groupingNameKey = item['name']['language'];
-                var groupingNameValue = item['name']['value'];
-                var groupingDescriptionKey = item['description']['language'];
-                var groupingDescriptionValue = item['description']['value'];
+            var groupingArray = [];
+            for (var item in _activityData['grouping']) {
+                var groupingNameKey = _activityData['grouping'][item]['name']['language'];
+                var groupingNameValue = _activityData['grouping'][item]['name']['value'];
+                var groupingDescriptionKey = _activityData['grouping'][item]['description']['language'];
+                var groupingDescriptionValue = _activityData['grouping'][item]['description']['value'];
                 var groupingArrayObj = {
-                    id: item['id'],
+                    id: _activityData['grouping'][item]['id'],
                     objectType: "Activity",
                     definition: {
                         name: {},
@@ -2498,20 +2982,21 @@ var XAPIBuilder = /** @class */ (function () {
                 };
                 groupingArrayObj['definition']['name'][groupingNameKey] = groupingNameValue;
                 groupingArrayObj['definition']['description'][groupingDescriptionKey] = groupingDescriptionValue;
-                groupingArray_1.push(groupingArrayObj);
-            });
+                groupingArray.push(groupingArrayObj);
+            }
             key = "grouping";
-            contextActivitiesObj[key] = groupingArray_1;
+            contextActivitiesObj[key] = groupingArray;
         }
+        /** set context other Property */
         if (_activityData.hasOwnProperty('other')) {
-            var otherArray_1 = [];
-            _activityData['other'].forEach(function (item) {
-                var otherNameKey = item['name']['language'];
-                var otherNameValue = item['name']['value'];
-                var otherDescriptionKey = item['description']['language'];
-                var otherDescriptionValue = item['description']['value'];
+            var otherArray = [];
+            for (var item in _activityData['other']) {
+                var otherNameKey = _activityData['other'][item]['name']['language'];
+                var otherNameValue = _activityData['other'][item]['name']['value'];
+                var otherDescriptionKey = _activityData['other'][item]['description']['language'];
+                var otherDescriptionValue = _activityData['other'][item]['description']['value'];
                 var otherArrayObj = {
-                    id: item['id'],
+                    id: _activityData['other'][item]['id'],
                     objectType: "Activity",
                     definition: {
                         name: {},
@@ -2520,16 +3005,31 @@ var XAPIBuilder = /** @class */ (function () {
                 };
                 otherArrayObj['definition']['name'][otherNameKey] = otherNameValue;
                 otherArrayObj['definition']['description'][otherDescriptionKey] = otherDescriptionValue;
-                otherArray_1.push(otherArrayObj);
-            });
+                otherArray.push(otherArrayObj);
+            }
             key = "other";
-            contextActivitiesObj[key] = otherArray_1;
+            contextActivitiesObj[key] = otherArray;
         }
         if (Object.keys(contextActivitiesObj).length !== 0) {
             this._context['contextActivities'] = contextActivitiesObj;
         }
+        /** set context platform Property */
+        if (_activityData.hasOwnProperty('platform')) {
+            this._context['platform'] = _activityData['platform'];
+        }
     };
-    XAPIBuilder.prototype.setXAPIData = function (_actionData) {
+    /**
+     * profile별 action data 구성
+     * + profile의 getProfile과 getStatement을 호출하여 statement 구성
+     * + profile의 validateProfile을 호출하여 statement의 property들을 검증
+     * @param _actionData
+     * @returns resultCode
+     */
+    xAPIBuilder.prototype.setXAPIData = function (_actionData) {
+        var dict = new xAPIDictionary_1.xAPIDictionary();
+        var verbDictSession = dict.verb.filter(function (data) { return data.hasOwnProperty('session'); });
+        var verbDictNavigation = dict.verb.filter(function (data) { return data.hasOwnProperty('navigation'); });
+        var verbDictMedia = dict.verb.filter(function (data) { return data.hasOwnProperty('media'); });
         this.resultCode = this.validateActionData(_actionData);
         if (this.resultCode['code'] == 200) {
             this.getProfile(_actionData);
@@ -2542,53 +3042,99 @@ var XAPIBuilder = /** @class */ (function () {
                 this._statement[resultKey] = this._result;
             }
             this._statement['timestamp'] = new Date().toISOString();
-            this._statement['version'] = config_1["default"].version;
-            if (this.mediaProfileObjInMember !== undefined && Object.keys(this.mediaProfileObjInMember[0])[0] == 'media') {
-                if (this.mediaProfileObjInMember[0]['media'].validateProfile(this._statement)) {
-                    this.resultCode = this.RET_CODE[0];
-                }
-                else {
-                    this.resultCode = this.RET_CODE[1];
-                    this.resultCode['data'] = "validation statement Fail";
-                }
-            }
-            else if (this.sessionProfileObjInMember !== undefined && Object.keys(this.sessionProfileObjInMember[0])[0] == 'session') {
-                if (this.sessionProfileObjInMember[0]['session'].validateProfile(this._statement)) {
-                    this.resultCode = this.RET_CODE[0];
-                }
-                else {
-                    this.resultCode = this.RET_CODE[1];
-                    this.resultCode['data'] = "validation statement Fail";
-                }
-            }
-            else if (this.navigationProfileObjInMember !== undefined && Object.keys(this.navigationProfileObjInMember[0])[0] == 'navigation') {
-                if (this.navigationProfileObjInMember[0]['navigation'].validateProfile(this._statement)) {
-                    this.resultCode = this.RET_CODE[0];
-                }
-                else {
-                    this.resultCode = this.RET_CODE[1];
-                    this.resultCode['data'] = "validation statement Fail";
-                }
+            this._statement['version'] = Config_1["default"].version;
+            switch (this._statement['verb']['id']) {
+                case verbDictSession[0]['session']["logged-in"].id:
+                case verbDictSession[0]['session']["logged-out"].id:
+                case verbDictSession[0]['session']["timed-out"].id:
+                case verbDictSession[0]['session']["paused"].id:
+                case verbDictSession[0]['session']["resumed"].id:
+                case verbDictSession[0]['session']["attempted"].id:
+                case verbDictSession[0]['session']["entered"].id:
+                case verbDictSession[0]['session']["leaved"].id:
+                case verbDictSession[0]['session']["attended"].id:
+                    if (this.sessionProfileObjInMember !== undefined && Object.keys(this.sessionProfileObjInMember[0])[0] == 'session') {
+                        if (this.sessionProfileObjInMember[0]['session'].validateProfile(this._statement)) {
+                            this.resultCode = this.RET_CODE[0];
+                        }
+                        else {
+                            this.resultCode = this.RET_CODE[1];
+                            this.resultCode['data'] = "validation statement Fail";
+                        }
+                    }
+                    break;
+                case verbDictNavigation[0]['navigation']["moved-to"].id:
+                case verbDictNavigation[0]['navigation']["next"].id:
+                case verbDictNavigation[0]['navigation']["previous"].id:
+                case verbDictNavigation[0]['navigation']["clicked"].id:
+                case verbDictNavigation[0]['navigation']["viewed"].id:
+                case verbDictNavigation[0]['navigation']["popped-up"].id:
+                case verbDictNavigation[0]['navigation']["opened"].id:
+                case verbDictNavigation[0]['navigation']["closed"].id:
+                    if (this.navigationProfileObjInMember !== undefined && Object.keys(this.navigationProfileObjInMember[0])[0] == 'navigation') {
+                        if (this.navigationProfileObjInMember[0]['navigation'].validateProfile(this._statement)) {
+                            this.resultCode = this.RET_CODE[0];
+                        }
+                        else {
+                            this.resultCode = this.RET_CODE[1];
+                            this.resultCode['data'] = "validation statement Fail";
+                        }
+                    }
+                    break;
+                case verbDictMedia[0]['media'].initialized.id:
+                case verbDictMedia[0]['media'].played.id:
+                case verbDictMedia[0]['media'].paused.id:
+                case verbDictMedia[0]['media'].seeked.id:
+                case verbDictMedia[0]['media'].completed.id:
+                case verbDictMedia[0]['media'].terminated.id:
+                case verbDictMedia[0]['media'].interacted.id:
+                    if (this.mediaProfileObjInMember !== undefined && Object.keys(this.mediaProfileObjInMember[0])[0] == 'media') {
+                        if (this.mediaProfileObjInMember[0]['media'].validateProfile(this._statement)) {
+                            this.resultCode = this.RET_CODE[0];
+                        }
+                        else {
+                            this.resultCode = this.RET_CODE[1];
+                            this.resultCode['data'] = "validation statement Fail";
+                        }
+                    }
+                    break;
             }
         }
         return this.resultCode;
     };
-    XAPIBuilder.prototype.getConfigData = function () {
+    /**
+     * 데이터 제공
+     * + 호출 시 config 설정 데이터 return
+     * @returns configData
+     */
+    xAPIBuilder.prototype.getConfigData = function () {
         var configData = {
-            endpoint: config_1["default"].endpoint,
-            username: config_1["default"].username,
-            password: config_1["default"].password
+            endpoint: Config_1["default"].endpoint,
+            username: Config_1["default"].key,
+            password: Config_1["default"].secret
         };
         return configData;
     };
-    XAPIBuilder.prototype.getStatementObj = function () {
+    /**
+     * 데이터 제공
+     * + 호출 시 전체 statement return
+     * @returns _statement
+    */
+    xAPIBuilder.prototype.getStatementObj = function () {
         return this._statement;
     };
-    XAPIBuilder.prototype.validateActionData = function (_actionData) {
+    /**
+     * Action Data Validation
+     * + required property에 대한 validation
+     * + property의 존재 여부와 format 체크
+     * @param _actionData
+     * @returns resultCode
+     */
+    xAPIBuilder.prototype.validateActionData = function (_actionData) {
         var resultCode = this.RET_CODE[0];
-        if (!_actionData.hasOwnProperty('object') && !_actionData.hasOwnProperty['object']('activityName') && !_actionData.hasOwnProperty['object']('ObjectId')) {
+        if (!_actionData.hasOwnProperty('object') && !_actionData.hasOwnProperty['object']('type') && !_actionData.hasOwnProperty['object']('id')) {
             resultCode = this.RET_CODE[1];
-            resultCode['data'] = "parameter object.activityName or object.ObjectId is missing";
+            resultCode['data'] = "parameter object.type or object.id is missing";
         }
         else if (!_actionData.hasOwnProperty('verb')) {
             resultCode = this.RET_CODE[1];
@@ -2596,21 +3142,29 @@ var XAPIBuilder = /** @class */ (function () {
         }
         return resultCode;
     };
-    XAPIBuilder.prototype.getProfile = function (_actionData) {
+    /**
+     * profile별로 object life cycle 관리
+     * + profile의 object 존재 여부 체크 후 object 생성 관리
+     * + profile의 getVerb, getActivity, getContext, getResult를 호출하여 XAPI property 구성
+     * @param _actionData
+     * @returns _profiles
+     */
+    xAPIBuilder.prototype.getProfile = function (_actionData) {
         var profilesObj = {};
         try {
-            switch (_actionData['object']['activityName'].toLowerCase()) {
+            switch (_actionData['object']['type'].toLowerCase()) {
+                /** media profile */
                 case 'video':
                 case 'audio':
                     if (this._profiles.filter(function (data) { return data.hasOwnProperty('media'); }).length == 0) {
-                        var mediaProfileObj = new mediaProfile_1.mediaProfile();
+                        var mediaProfileObj = new MediaProfile_1.MediaProfile();
                         profilesObj['media'] = mediaProfileObj;
                         this._profiles.push(profilesObj);
                     }
                     this.mediaProfileObjInMember = this._profiles.filter(function (data) { return data.hasOwnProperty('media'); });
                     var getMediaVerbReturn = this.mediaProfileObjInMember[0]['media'].getVerb(_actionData['verb']);
                     this._verb = getMediaVerbReturn;
-                    var getMediaActivityReturn = this.mediaProfileObjInMember[0]['media'].getActivity(_actionData['object']['activityName'], _actionData['object']['ObjectId'], _actionData['object']['name'], _actionData['object']['description']);
+                    var getMediaActivityReturn = this.mediaProfileObjInMember[0]['media'].getActivity(_actionData['object']['type'], _actionData['object']['id'], _actionData['object']['name'], _actionData['object']['description']);
                     this._activity = getMediaActivityReturn;
                     var getMediaExtensionsReturn = this.mediaProfileObjInMember[0]['media'].getContext(_actionData['extension']);
                     this._extensions = getMediaExtensionsReturn;
@@ -2627,17 +3181,18 @@ var XAPIBuilder = /** @class */ (function () {
                         }
                     }
                     break;
+                /** session profile */
                 case 'software-application':
                 case 'group-activity':
                     if (this._profiles.filter(function (data) { return data.hasOwnProperty('session'); }).length == 0) {
-                        var sessionProfileObj = new sessionProfile_1.sessionProfile();
+                        var sessionProfileObj = new SessionProfile_1.SessionProfile();
                         profilesObj['session'] = sessionProfileObj;
                         this._profiles.push(profilesObj);
                     }
                     this.sessionProfileObjInMember = this._profiles.filter(function (data) { return data.hasOwnProperty('session'); });
                     var getSessionVerbReturn = this.sessionProfileObjInMember[0]['session'].getVerb(_actionData['verb']);
                     this._verb = getSessionVerbReturn;
-                    var getSessionActivityReturn = this.sessionProfileObjInMember[0]['session'].getActivity(_actionData['object']['activityName'], _actionData['object']['ObjectId'], _actionData['object']['name'], _actionData['object']['description']);
+                    var getSessionActivityReturn = this.sessionProfileObjInMember[0]['session'].getActivity(_actionData['object']['type'], _actionData['object']['id'], _actionData['object']['name'], _actionData['object']['description']);
                     this._activity = getSessionActivityReturn;
                     var getSessionExtensionsReturn = this.sessionProfileObjInMember[0]['session'].getContext(_actionData['extension']);
                     this._extensions = getSessionExtensionsReturn;
@@ -2654,19 +3209,20 @@ var XAPIBuilder = /** @class */ (function () {
                         }
                     }
                     break;
+                /** navigation profile */
                 case 'document':
                 case 'webpage':
                 case 'menu':
                 case 'toc':
                     if (this._profiles.filter(function (data) { return data.hasOwnProperty('navigation'); }).length == 0) {
-                        var navigationProfileObj = new navigationProfile_1.navigationProfile();
+                        var navigationProfileObj = new NavigationProfile_1.NavigationProfile();
                         profilesObj['navigation'] = navigationProfileObj;
                         this._profiles.push(profilesObj);
                     }
                     this.navigationProfileObjInMember = this._profiles.filter(function (data) { return data.hasOwnProperty('navigation'); });
                     var getNavigationVerbReturn = this.navigationProfileObjInMember[0]['navigation'].getVerb(_actionData['verb']);
                     this._verb = getNavigationVerbReturn;
-                    var getNavigationActivityReturn = this.navigationProfileObjInMember[0]['navigation'].getActivity(_actionData['object']['activityName'], _actionData['object']['ObjectId'], _actionData['object']['name'], _actionData['object']['description']);
+                    var getNavigationActivityReturn = this.navigationProfileObjInMember[0]['navigation'].getActivity(_actionData['object']['type'], _actionData['object']['id'], _actionData['object']['name'], _actionData['object']['description']);
                     this._activity = getNavigationActivityReturn;
                     var getNavigationExtensionsReturn = this.navigationProfileObjInMember[0]['navigation'].getContext(_actionData['extension']);
                     this._extensions = getNavigationExtensionsReturn;
@@ -2691,7 +3247,15 @@ var XAPIBuilder = /** @class */ (function () {
         }
         return this._profiles;
     };
-    XAPIBuilder.prototype.getStatement = function (_actor, _verb, _activity) {
+    /**
+     * statement 구성
+     * + statement 중 actor, verb, object property 구성
+     * @param _actor
+     * @param _verb
+     * @param _activity
+     * @returns _statement
+     */
+    xAPIBuilder.prototype.getStatement = function (_actor, _verb, _activity) {
         var statementObj = {
             id: "",
             actor: {
@@ -2714,18 +3278,29 @@ var XAPIBuilder = /** @class */ (function () {
         this._statement = statementObj;
         return this._statement;
     };
-    XAPIBuilder.prototype.setAttachments = function (_actionData) {
+    /**
+     * statement 구성
+     * + statement 중 attachments property 구성
+     * @param _actionData
+     * @returns _statement
+     */
+    xAPIBuilder.prototype.setAttachments = function (_actionData) {
         if (_actionData.hasOwnProperty('attachments')) {
             this._statement = _actionData['attachments'];
         }
         return this._statement;
     };
-    XAPIBuilder.prototype.getUuid = function () {
+    /**
+     * uuid 생성
+     * + 호출 시 생성된 uuid return
+     * @returns uuid
+     */
+    xAPIBuilder.prototype.getUuid = function () {
         return uuid_1.v4();
     };
-    return XAPIBuilder;
+    return xAPIBuilder;
 }());
-exports.XAPIBuilder = XAPIBuilder;
+exports.xAPIBuilder = xAPIBuilder;
 
 })();
 

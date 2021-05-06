@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>xAPI Verb List & Statement Example</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <script type="text/javascript" src="./xapi-util.js"></script>
+</head>
+<script>
+  // xAPI 초기화시 사용되는 샘플 데이터
+  let initializeData = {
+    'instructor': {
+      "account": {"homePage": "https://www.sample.com","name": "제임스"},
+      'name': '튜터'
+    },
+    'team': {
+      'name': 'Dev Ops.',
+      'member': [
+        {"account": {"homePage": "https://www.sample.com","name": "제임스"}, 'name': '제임스'},
+        {'id': 'kim@example.com', 'name': '킴'},
+        {'id': 'lee@example.com', 'name': '리'}
+      ]
+    },
+    'parent': [
+      {'id': 'http://example.com/menu/video', 'name': '동영상', 'description': '동영상 보기 메뉴'},
+      {'id': 'http://example.com/menu/course', 'name': '강좌', 'description': '강좌 바로가기 메뉴'}
+    ],
+    'grouping': [
+      {'id': 'http://example.com/course/ocean', 'name': '바다', 'description': '바다속 체험'},
+      {'id': 'http://example.com/course/dolphin', 'name': '돌고래', 'description': '돌고래'}
+    ],
+    'other': [
+      {'id': 'https://videojs.com/advanced/?video=disneys-oceans', 'name': 'Disney\'s Oceans', 'description': 'Video JS Sample Video'}
+    ]
+  }
+
+  // actionData sample
+  // session profile 샘플 데이터
+  let sessionActionData = {
+      "object": {
+          "type": "software-application", //software-application, group-activity
+          "id": "https://example.com/example/main.html",
+          "name": "main",
+          "description": "main page"
+      },
+      "extension":{
+          // Result Extensions
+          "attempt-count": 0,
+          "attended-time": "2021-05-02T23:51:33.230Z",
+          "attended-reason": "지각",
+          "leaved-reason": "강퇴",
+          // Context Extensions
+          "session-id": "4a080e44-d6bf-42fb-8241-f9cc730bbd51",
+          "started-time": "2021-05-02T23:51:33.230Z",
+          "ended-time": "2021-05-02T23:51:33.230Z",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
+          "ip-address": "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+          "host": "https://example.com"
+      }
+  }
+
+  // navigation profile 샘플 데이터
+  let navigationActionData = {
+    "object": {
+        "type": "webpage", //document, webpage, menu, toc
+        "id": "https://example.com/example/mediaExample.html",
+        "name": "동영상보기",
+        "description": "바다속 체험"
+    },
+    "extension": {
+        // Result Extensions
+        "current-index": "2",
+        "total-index": "30",
+        "view-started-time": "2021-05-02T23:51:33.230Z",
+        "view-ended-time": "2021-05-02T23:51:33.230Z",
+        // Context Extensions
+        "target-id": "https://example.com/example/mediaExample.html",
+        "target-type": "webpage",
+        "target-name": "mediaExample",
+        "referrer-id": "https://www.example.co.kr/example/menuExample.html",
+        "referrer-type": "Menu",
+        "referrer-name": "menu page"
+    }
+  }
+
+  // media profile 샘플 데이터
+  let mediaActionData = {
+      "object": {
+          "type": "video", // video, audio
+          "id": "https://example.com/videos/b6a98d52-1e52-4d45-a14t-a15f97e63d25",
+          "name": "Ocean Life",
+          "description": "A short video clip of ocean lifeforms, used by videojs.com as part of their demo."
+      },
+      "result": {
+          "completion": true,
+          "duration": 0.904
+      },
+      "extension": {
+          // Result Extensions
+          "time": 23.560,
+          "time-from": 12.120,
+          "time-to": 17.570,
+          "progress": 0.375,
+          "played-segments": "0.000[.]1.789[,]5.254[.]1.789",
+          // Context Extensions
+          "media-session-id": "77ca45e3-adb6-47ad-94be-a31e4f56c7fa",
+          "cc-subtitle-enabled": true,
+          "cc-subtitle-lang": "en",
+          "cc-enabled": true,
+          "frame-rate": 23.98,
+          "full-screen": false,
+          "quality": "960x400",
+          "screen-size": "1920x1080",
+          "video-playback-size": "640x360",
+          "speed": "1x",
+          "track": "track1-ocean",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
+          "volume": 1,
+          "length": 46.613,
+          "completion-threshold": 1,
+          "tag": "#ocean,#life"
+      }
+  }
+
+  window.onload = function(){
+    // initial xAPI Builder
+    xAPIUtil.xAPIInitialize();
+
+    // initial activity Data
+    xAPIUtil.initializeActivity(initializeData);
+  }
+
+  // LRS로 send된 statement 표시
+  function statementInnerText(){
+    var o = document.getElementById('output');
+    o.innerText = JSON.stringify(getStatement(), null, '    ');
+  }
+
+  // 표시된 statement 삭제
+  function clearStatement(){
+    var output = document.getElementById('output');
+    output.innerText = "";
+  }
+</script>
+<body>
+  <div>
+    <h2><a href="./main.html"><- Go to main</a></h2>
+  </div>
+  <div style="text-align: center; position: absolute; top: 40px; left: 50px; width: 650px; ">
+    <h2>xAPI Verb List</h2>
+    <div align="left">
+      <h4>1. Session</h4>
+      <table style="border:0px solid gray;">
+        <tbody>
+          <tr>
+            <th style="width: 100px; border: 1px solid gray;">Verb</th>
+            <th style="width: 520px; border: 1px solid gray;">호출 데이터</th>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);statementInnerText();">Logged-In</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              N/A
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);xAPIUtil.Session.loggedOut();statementInnerText();">Logged-Out</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              N/A
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);xAPIUtil.Session.timedOut();statementInnerText();">Timed-Out</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              N/A
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);xAPIUtil.Session.paused();statementInnerText();">Paused</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              N/A
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);xAPIUtil.Session.resumed();statementInnerText();">Resumed</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              N/A
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.attempted(sessionActionData, 0);statementInnerText();">Attempted</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Attempt-Count
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);xAPIUtil.Session.entered();statementInnerText();">Entered</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              N/A
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);xAPIUtil.Session.leaved('강퇴');statementInnerText();">Leaved</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Leaved-Reason
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Session.loggedIn(sessionActionData);xAPIUtil.Session.attended('지각');statementInnerText();">Attended</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Attended-Reason
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>2. Navigation</h4>
+      <table style="border:0px solid gray;">
+        <tbody>
+          <tr>
+            <th style="width: 100px; border: 1px solid gray;">Verb</th>
+            <th style="width: 520px; border: 1px solid gray;">호출 데이터</th>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.movedTo(navigationActionData);statementInnerText();">Moved-To</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Target-Id, Target-Type, Target-Name, Referrer-Id, Referrer-Type, Referrer-Name
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.next(navigationActionData);statementInnerText();">Next</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Current-Index, Total-Index, Target-Id, Target-Type, Referrer-Id, Referrer-Type, Target-Name, Referrer-Name
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.previous(navigationActionData);statementInnerText();">Previous</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Current-Index, Total-Index, Target-Id, Target-Type, Referrer-Id, Referrer-Type, Target-Name, Referrer-Name
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.clicked(navigationActionData);statementInnerText();">Clicked</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Target-Id, Target-Type, Target-Name
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.viewed(navigationActionData);statementInnerText();">Viewed</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              View-Started-Time, View-Ended-Time, Target-Id, Target-Type, Target-Name
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.poppedUp(navigationActionData);statementInnerText();">Popped-Up</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Target-Id, Target-Type, Referrer-Id, Referrer-Type, Target-Name, Referrer-Name
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.opened(navigationActionData);statementInnerText();">Opened</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Target-Id, Target-Type, Target-Name, Referrer-Id, Referrer-Type, Referrer-Name
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Navigation.closed(navigationActionData);statementInnerText();">Closed</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              TargetId, TargetType, TargetName
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>3. Media</h4>
+      <table style="border:0px solid gray;">
+        <tbody>
+          <tr>
+            <th style="width: 100px; border: 1px solid gray;">Verb</th>
+            <th style="width: 520px; border: 1px solid gray;">호출 데이터</th>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Media.initialized(mediaActionData);statementInnerText();">Initialized</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Media-Session-Id, Length, Completion-Threshold, Cc-Enabled, Cc-Subtitle-Lang, Frame-Rate, Full-Screen, Quality, Screen-Size, Video-Playback-Size, Speed, Track, User-Agent, Volume
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Media.initialized(mediaActionData);xAPIUtil.Media.played(mediaActionData);statementInnerText();">Played</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Media-Session-Id, Time,
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Media.initialized(mediaActionData);xAPIUtil.Media.played(mediaActionData);xAPIUtil.Media.paused(mediaActionData);statementInnerText();">Paused</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Media-Session-Id, Length, Time, Progress
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Media.initialized(mediaActionData);xAPIUtil.Media.played(mediaActionData);xAPIUtil.Media.seeked(mediaActionData);statementInnerText();">Seeked</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Media-Session-Id, Time-From, Time-To
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Media.initialized(mediaActionData);xAPIUtil.Media.played(mediaActionData);xAPIUtil.Media.interacted(mediaActionData);statementInnerText();">Interacted</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Media-Session-Id, Time, Volume / Cc-Subtitle-Enabled, Cc-Subtitle-Lang / Full-Screen, Screen-Size, Video-Playback-Size
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Media.initialized(mediaActionData);xAPIUtil.Media.played(mediaActionData);xAPIUtil.Media.completed(mediaActionData);statementInnerText();">Completed</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Media-Session-Id, Completion, Length, Time, Progress, Completion-Threshold
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid gray;"><a href="javascript:xAPIUtil.Media.initialized(mediaActionData);xAPIUtil.Media.played(mediaActionData);xAPIUtil.Media.terminated(mediaActionData);statementInnerText();">Terminated</a></td>
+            <td style="border: 1px solid gray; font-size: 10px;">
+              Media-Session-Id, Length, Time, Progress, Completion-Threshold
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="text-align: center; position: absolute; top: 40px; left: 700px; width: 700px; ">
+    <h2>xAPI Statement</h2>
+  </div>
+  <div style="text-align: center; position: absolute; top: 70px; left: 1350px;">
+    <button id="clear" onclick="clearStatement();">Clear</button>
+  </div>
+  <div id="stmtLayer" style="border: 1px solid gray; text-align: left; position: absolute; top: 100px; left: 700px; width: 900px; height:850px;overflow-x: auto;overflow-y: auto;">
+    <code><pre id='output'></pre></code>
+  </div>
+</body>
+</html>

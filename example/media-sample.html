@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Video.js | HTML5 Video Player</title>
+    <link href="./video-js-6.1.0/video-js.css" rel="stylesheet">
+    <script src="./video-js-6.1.0/ie8/videojs-ie8.min.js"></script>
+    <script src="./video-js-6.1.0/video.js"></script>
+    <script type="text/javascript" src="./media-sample.js"></script>
+    <script type="text/javascript" src="./xapi-util.js"></script>
+  </head>
+  <body prefix="dcterms: http://purl.org/dc/terms/">
+    <div>
+      <h2><a href="./main.html"><- Go to main</a></h2>
+    </div>
+    <div style="display: inline-block;">
+    <video id="videoObj-1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+      <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+      <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+
+      <track kind="captions" src="./example-captions.vtt" srclang="en" label="English" default></track>
+      <track kind="subtitles" src="./example-captions.vtt" srclang="en" label="English"></track>
+
+      <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+    <button type="button" id="terminated1">종료</button>
+    </div>
+    <div style="display: inline-block;">
+    <video id="videoObj-2" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}" >
+      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+      <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+      <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+
+      <track kind="captions" src="./example-captions.vtt" srclang="en" label="English" default></track>
+      <track kind="subtitles" src="./example-captions.vtt" srclang="en" label="English"></track>
+
+      <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+    <button type="button" id="terminated2">종료</button>
+    </div>
+    <script type="text/javascript">
+      window.onload = function(){
+        /* 샘플 데이터 설정 */
+        let initializeData = {          
+          'instructor': {
+            "account": {"homePage": "https://www.sample.com","name": "제임스"},
+            'name': '튜터'
+          },
+          'team': {
+            'name': 'Dev Ops.',
+            'member': [
+              {"account": {"homePage": "https://www.sample.com","name": "제임스"}, 'name': '제임스'},
+              {'id': 'kim@example.com', 'name': '킴'},
+              {'id': 'lee@example.com', 'name': '리'}
+            ]
+          },
+          'parent': [
+            {'id': 'http://example.com/menu/video', 'name': '동영상', 'description': '동영상 보기 메뉴'},
+            {'id': 'http://example.com/menu/course', 'name': '강좌', 'description': '강좌 바로가기 메뉴'}
+          ],
+          'grouping': [
+            {'id': 'http://example.com/course/ocean', 'name': '바다', 'description': '바다속 체험'},
+            {'id': 'http://example.com/course/dolphin', 'name': '돌고래', 'description': '돌고래'}
+          ],
+          'other': [
+            {'id': 'https://videojs.com/advanced/?video=disneys-oceans', 'name': 'Disney\'s Oceans', 'description': 'Video JS Sample Video'}
+          ]
+        }
+
+        // initial xAPI Builder
+        xAPIUtil.xAPIInitialize();
+
+        // initial activity Data
+        xAPIUtil.initializeActivity(initializeData);
+      }
+      
+      MediaObj(
+        "videoObj-1",
+        "http://vjs.zencdn.net/v/oceans.mp4",
+        "Ocean Life 1",
+        "A short video clip of ocean lifeforms, used by videojs.com as part of their demo.", 
+        "terminated1",
+        "c6cf6fce-32b8-4760-8b49-62da30d9f9cd",
+        1.0
+      );
+
+      MediaObj(
+        "videoObj-2",
+        "http://vjs.zencdn.net/v/oceans.mp4",
+        "Ocean Life 2",
+        "A short video clip of ocean lifeforms, used by videojs.com as part of their demo.",
+        "terminated2",
+        "ca65afb2-c30b-4aad-a75f-ae6db48f2d4a",
+        1.0
+      );
+    </script>
+   
+  </body> 
+</html>
