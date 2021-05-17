@@ -1,0 +1,10 @@
+{
+
+    "Resources" : {
+        
+        "Script" : [
+            "../dist/BUILDER.js",
+            "../xapi-wrapper/dist/xapiwrapper.min.js"
+        ]
+    }
+}

@@ -28,7 +28,8 @@ const config = {
     minimizer: [new TerserJSPlugin({
       include: /\.min\.js$/
     })]
-  }
+  },
+  devtool : "source-map"
 };
 module.exports = config;
 

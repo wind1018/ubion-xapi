@@ -3,11 +3,11 @@
  */
 const Config = {
     /** LRS Endpoint */
-    endpoint: 'http://wickedstorm.iptime.org/data/xAPI/',
+    endpoint: 'http://211.193.3.74/data/xAPI/',
     /** LRS Clients Key */
-    key: "5b7a6060d79cff00aaa9ee67b9169bbe238473b2",
+    key: "e9e89d0d650135c288a3c4e50dae38276be7d495",
     /** LRS Clients secret */
-    secret: "9580718c71e462f0a8ce63445b3415465cdff7c2",
+    secret: "49c77874bb6ac77b68bf0c40a25d94c82843ba87",
     /** ADL Version */
     version: "1.0.3"
 }
