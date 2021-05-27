@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+      "outDir": "../dist",
+      "sourceMap": true,
+      "module": "amd",
+      "target": "es5",
+      "allowJs": true,
+      "outFile": "../dist/Wrapper.js"
+  },
+  "include": [
+      "./**/*"
+  ]
+}

@@ -5,9 +5,16 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>xAPI Verb List & Statement Example</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <script type="text/javascript" src="./xapi-util.js"></script>
+  <script type="text/javascript" src="./dist/require.js"></script>
+
+  <script type="text/javascript" src="../dist/Builder.js"></script>
+  <script type="text/javascript" src="../xapi-wrapper/dist/xapiwrapper.min.js"></script>
+  <script type="text/javascript" src="./dist/Wrapper.js"></script>
+  
 </head>
 <script>
+
+
   // xAPI 초기화시 사용되는 샘플 데이터
   let initializeData = {
     'instructor': {
@@ -124,11 +131,14 @@
   }
 
   window.onload = function(){
-    // initial xAPI Builder
-    xAPIUtil.xAPIInitialize();
+    
+    var wrapper = new Wrapper();
+    wrapper.Initialize();
+    // // initial xAPI Builder
+    // xAPIUtil.xAPIInitialize();
 
-    // initial activity Data
-    xAPIUtil.initializeActivity(initializeData);
+    // // initial activity Data
+    // xAPIUtil.initializeActivity(initializeData);
   }
 
   // LRS로 send된 statement 표시
