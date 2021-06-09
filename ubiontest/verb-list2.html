@@ -14,6 +14,7 @@
 </head>
 <script>
 
+  
 
   // xAPI 초기화시 사용되는 샘플 데이터
   let initializeData = {
@@ -132,8 +133,24 @@
 
   window.onload = function(){
     
-    var wrapper = new Wrapper();
-    wrapper.Initialize();
+
+    var config  = {      
+      PLATFORM : "xAPI Test",
+      USER_ID : "windboy@gmail.com",//{"account": {"homePage": "https://www.sample.com","name": "제임스"}},//"windboy@ubion.co.kr",
+      USER_NAME : "abcd",
+      SESS_ID : "1111111"
+    }
+    applicition = new APPLICATION_CONFIG_koKR(config);
+  
+    var wrapper = new Wrapper(applicition);
+    wrapper.InitializeActivity(initializeData);
+
+    //var app = new SessionActionData2();
+    var app = new Application.SessionAcctionData();
+    //app.SetAttempCount(10);
+    console.log(app);
+
+    //wrapper.Initialize();
     // // initial xAPI Builder
     // xAPIUtil.xAPIInitialize();
 
