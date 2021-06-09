@@ -42,8 +42,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -313,38 +311,41 @@ var Application;
     var SessionActionData //implements IActionSessionData 
      = /** @class */ (function () {
         function SessionActionData() {
-            // // Agent 값 설정
-            // this.extension["user-agent"] = navigator.userAgent.toLowerCase();
-            // // Host 명 가져오기
-            // this.extension["host"] = window.location.origin;
+            this.object = {
+                type: eSessionDataObjectType["software-application"],
+                id: null,
+                name: null,
+                description: null
+            };
+            this.extension = {
+                "attemp-count": 0,
+                "attended-time": null,
+                "attended-reason": null,
+                "leaved-reason": null,
+                "session-id": null,
+                "started-time": null,
+                "ended-time": null,
+                "user-agent": null,
+                "ip-address": null,
+                "host": null
+            };
+            // Agent 값 설정
+            this.extension["user-agent"] = navigator.userAgent.toLowerCase();
+            // Host 명 가져오기
+            this.extension["host"] = window.location.origin;
         }
+        SessionActionData.prototype.SetAttempCount = function (count) {
+            this.extension["attemp-count"] = count;
+        };
         return SessionActionData;
     }());
     Application.SessionActionData = SessionActionData;
 })(Application || (Application = {}));
-// interface IActionSessionDataObject {
-//     type : eSessionDataObjectType;
-//     id : string;
-//     name : string;
-//     description : string;
-// }
-// interface IActionSessionDataExtension {
-//     "attemp-count" : number;
-//     "attended-time" : string;
-//     "attended-reason" : string;
-//     "leaved-reason" : string;
-//     "session-id" : string;
-//     "started-time" : string;
-//     "ended-time" : string;
-//     "user-agent" : string;
-//     "ip-address" : string;
-//     "host" : string;
-// }
-// enum eSessionDataObjectType 
-// {
-//     "software-application" = "software-application",
-//     "group-activity" = "group-activity"
-// }
+var eSessionDataObjectType;
+(function (eSessionDataObjectType) {
+    eSessionDataObjectType["software-application"] = "software-application";
+    eSessionDataObjectType["group-activity"] = "group-activity";
+})(eSessionDataObjectType || (eSessionDataObjectType = {}));
 // let SessionDataObjectType : { [key:string] : string } ={
 //     "software-application" : "software-application",
 //     "group-activity" : "group-activity"
