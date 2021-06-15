@@ -42,6 +42,8 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -310,13 +312,23 @@ var Application;
 (function (Application) {
     var SessionActionData //implements IActionSessionData 
      = /** @class */ (function () {
-        function SessionActionData() {
+        /**
+         * 실행정보 셋팅
+         * @param SessionInfo
+         */
+        function SessionActionData(SessionInfo) {
+            /**
+             * object 유형 선언
+             */
             this.object = {
                 type: eSessionDataObjectType["software-application"],
                 id: null,
                 name: null,
                 description: null
             };
+            /**
+             * 확장 유형 선언
+             */
             this.extension = {
                 "attemp-count": 0,
                 "attended-time": null,
@@ -333,6 +345,26 @@ var Application;
             this.extension["user-agent"] = navigator.userAgent.toLowerCase();
             // Host 명 가져오기
             this.extension["host"] = window.location.origin;
+            // Page ID 기본값 셋팅
+            this.object.id = window.location.toString();
+            // Page ID
+            if (typeof (SessionInfo.id) != undefined && SessionInfo.id != null) {
+                this.object.id = SessionInfo.id;
+            }
+            // Page Name 기본값 셋팅
+            this.object.name = window.location.pathname.split("/").pop().split(".")[0];
+            // Page Name
+            if (typeof (SessionInfo.name) != undefined && SessionInfo.name != null) {
+                this.object.name = SessionInfo.name;
+            }
+            // 설명
+            if (typeof (SessionInfo.description) != undefined && SessionInfo.description != null) {
+                this.object.description = SessionInfo.description;
+            }
+            // Application 유형
+            if (typeof (SessionInfo.type) != undefined && SessionInfo.type != null) {
+                this.object.type = SessionInfo.type;
+            }
         }
         SessionActionData.prototype.SetAttempCount = function (count) {
             this.extension["attemp-count"] = count;
