@@ -36,7 +36,11 @@ interface IApplication_Custom_Data {
     /**
      * 로그인 사용자 이름
      */
-    USER_NAME: string;
+    USER_NAME: string;    
     USER_TEAM?: string;
+
+    
+    /** 국가 */
+    LOCALE_SET? : string;
 
 }

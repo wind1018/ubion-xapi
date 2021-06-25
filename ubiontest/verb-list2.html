@@ -131,26 +131,34 @@
       }
   }
 
+  var app;
   window.onload = function(){
-    
 
     var config  = {      
       PLATFORM : "xAPI Test",
       USER_ID : "windboy@gmail.com",//{"account": {"homePage": "https://www.sample.com","name": "제임스"}},//"windboy@ubion.co.kr",
       USER_NAME : "abcd",
-      SESS_ID : "1111111"
+      SESS_ID : "55555",
+      LOCALE_SET : "koKR"
     }
-    applicition = new APPLICATION_CONFIG_koKR(config);
+    //applicition = new APPLICATION_CONFIG_koKR(config);
   
-    var wrapper = new Wrapper(applicition);
-    wrapper.InitializeActivity(initializeData);
-
+    //console.log(applicition);
+    //var wrapper = new Wrapper(applicition, initializeData);
+    var wrapper = new Wrapper(config, initializeData);
+    //wrapper.InitializeActivity(initializeData);
+    console.log("Wrapper", wrapper);
     //var app = new SessionActionData2();
-    var app = new Application.SessionActionData({
-      
-    });
-    app.SetAttempCount(10);
-    console.log(app);
+    // app = new Application.SessionActionData({
+    //   session_id : wrapper.APPLICATION_DATA.SESS_ID
+    // });
+    //app.SetAttempCount(10);
+    //console.log(app);
+
+    wrapper.SessionActionData.IncreaseAttempCount();    
+    console.log("SessionData", wrapper.sessionActionData);
+
+    console.log(CurrentUTCTime());
     //wrapper.Initialize();
     // // initial xAPI Builder
     // xAPIUtil.xAPIInitialize();

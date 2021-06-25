@@ -3,6 +3,7 @@
       "outDir": "../dist",
       "sourceMap": true,
       "module": "amd",
+      "moduleResolution": "node",
       "target": "es5",
       "allowJs": true,
       "outFile": "../dist/Wrapper.js"

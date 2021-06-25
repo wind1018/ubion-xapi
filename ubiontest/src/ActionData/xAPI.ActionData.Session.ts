@@ -17,12 +17,16 @@ namespace Application
                 id ? : string,                         
                 name? : string,
                 description ? : string,
-                type? : eSessionDataObjectType,
-                
+                type? : eSessionDataObjectType,                
             }
         ){
             // SessiionID 등록
-            
+            if(typeof (SessionInfo.session_id) != undefined && SessionInfo.session_id != null){
+                this.extension["session-id"] = SessionInfo.session_id;    
+            }
+            else {
+                throw "session-id 가 등록되지 않았습니다.";
+            }
              
             // Agent 값 설정
             this.extension["user-agent"] = navigator.userAgent.toLowerCase();
@@ -32,7 +36,7 @@ namespace Application
             
             // Page ID 기본값 셋팅
             this.object.id = window.location.toString();
-
+            
             // Page ID
             if(typeof (SessionInfo.id) != undefined && SessionInfo.id != null){
                 this.object.id = SessionInfo.id;    
@@ -55,6 +59,8 @@ namespace Application
             if(typeof (SessionInfo.type) != undefined && SessionInfo.type != null){
                 this.object.type = SessionInfo.type;
             }
+
+
         }
 
 
@@ -74,7 +80,7 @@ namespace Application
          * SessionData 확장 
          *  + attemp-count :: 정상적으로 로그인 하지 못한 경우 접속을 시도한 회수를 나타냄.
          *  + attended-time :: 참석(출석)을 완료한 시점의 시간을 나타냄.
-         *  + attended-reason :: 참석(출석)을 완료한 시점의 시간을 나타냄.
+         *  + attended-reason :: 참석(출석)시 부가적인 사유, 상태가 있을 경우를 나타냄.
          *  + leaved-reason :: 퇴장시 부가적인 사유, 상태가 있을 경우를 나타냄.
          *  + session-id :: 활동 주기 동안 사용된 세션 유효값
          *  + started-time :: 활동을 시작한 시점의 시간을 나타냄.
@@ -97,12 +103,32 @@ namespace Application
 
         }
 
+        /**
+         * 정상적으로 로그인 하지 못한 경우 접속을 시도한 회수를 나타냄.
+         * @param count 숫자
+         */
         SetAttempCount(count : number) {
 
             this.extension["attemp-count"] = count;
         }
 
+        /**
+         * 접속시도 회수를 증가 시킴
+         */
+        IncreaseAttempCount(){
 
+            this.extension["attemp-count"]++;
+
+        }
+
+
+        /**
+         * 참석(출석)을 완료한 시점의 시간을 나타냄
+         * @param date 지정할 시간
+         */
+        SetAttendedTime(date : Date) {
+            this.extension["attended-time"] = UTCTime(date);
+        }
 
     }
 }
@@ -122,7 +148,7 @@ interface IActionSessionDataObject {
  * SessionData 확장 
  *  + attemp-count :: 정상적으로 로그인 하지 못한 경우 접속을 시도한 회수를 나타냄.
  *  + attended-time :: 참석(출석)을 완료한 시점의 시간을 나타냄.
- *  + attended-reason :: 참석(출석)을 완료한 시점의 시간을 나타냄.
+ *  + attended-reason :: 참석(출석)시 부가적인 사유, 상태가 있을 경우를 나타냄.
  *  + leaved-reason :: 퇴장시 부가적인 사유, 상태가 있을 경우를 나타냄.
  *  + session-id :: 활동 주기 동안 사용된 세션 유효값
  *  + started-time :: 활동을 시작한 시점의 시간을 나타냄.

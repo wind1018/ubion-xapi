@@ -1,3 +1,4 @@
+// import { stringifyConfiguration } from "../../node_modules/tslint/lib/configuration";
 
 
 class Wrapper
@@ -8,20 +9,65 @@ class Wrapper
     private APPLICATION_DATA : IApplication_Data;
 
     private resultCode : object;
-    constructor(application_Data : IApplication_Data) {
+
+    SessionActionData : Application.SessionActionData;
+
+    constructor(
+        //application_Data : IApplication_Data,
+        application_Data : IApplication_Custom_Data,
+        initializeData? : any
+    ) {
 
         
         // Wrapper 처리
         this.Initialize();
 
-        // APPLICATION Data 전달
-        this.APPLICATION_DATA = application_Data;
-        console.log(this.APPLICATION_DATA);
+        // APPLICATION Data 전달하여 Locale 값을 가져온다.
+        this.APPLICATION_DATA = this.GetApplicationDataLocale(application_Data);
+        
 
-        //                                                      this.InitializeActivity(this.APPLICATION_DATA);
+        if(typeof initializeData !== undefined && initializeData !== null){
+            this.InitializeActivity(initializeData);
+        }
+        
+
+        // SessionActionData 설정
+        this.SessionActionData = new Application.SessionActionData({
+            session_id : this.APPLICATION_DATA.SESS_ID
+        });
+
 
     }
 
+
+    /**
+     * Application 데이터 생성
+     * @param application_Data 
+     * @returns 
+     */
+    private GetApplicationDataLocale(application_Data : IApplication_Custom_Data) : IApplication_Data
+    {
+        var applicition = null;
+
+        if(            
+            String.IsNullOrEmpty(application_Data.LOCALE_SET) == false
+        )
+        {
+            switch(application_Data.LOCALE_SET){
+                case "koKR":
+                    applicition = new APPLICATION_CONFIG_koKR(application_Data);
+                    break;
+                default:
+                    applicition = new APPLICATION_CONFIG_koKR(application_Data);
+                    break;
+            }
+        }
+        else {
+            applicition = new APPLICATION_CONFIG_koKR(application_Data);
+        }
+
+        return applicition;
+    }
 
 
     private Initialize(){
@@ -57,7 +103,6 @@ class Wrapper
     public InitializeActivity(data : any) {
 
         
-
         let initializeData = this.cloneData(data);
 
         // APPLICATION_DATA로 선언한 항목 Initial Data setting
@@ -178,6 +223,7 @@ class Wrapper
         console.log('Result : ', res);
 
     }
+
 
 
 

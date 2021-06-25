@@ -65,6 +65,31 @@ var __extends = (this && this.__extends) || (function () {
 //     }
 //     return cloned;
 // }
+function UTCTime(date) {
+    return new Date(date.getTime() - new Date().getTimezoneOffset() * 60000).toISOString();
+}
+function CurrentUTCTime() {
+    return UTCTime(new Date());
+}
+/**
+ * String 에 대한 Null 또는 Empty 검사
+ * @param value String 값
+ * @returns Null 또는 Empty 여부
+ */
+String.IsNullOrEmpty = function (value) {
+    return IsNullOrEmpty(value);
+};
+/**
+ * String 에 대한 Null 또는 Empty 검사
+ * @param value String 값
+ * @returns Null 또는 Empty 여부
+ */
+function IsNullOrEmpty(value) {
+    if (value !== undefined && value !== null && value !== "") {
+        return false;
+    }
+    return true;
+}
 /**
  * 언어 및 지역 설정 값
  */
@@ -82,15 +107,45 @@ var Locales = {
 //     "software-application",
 //     "group-activity"
 // }
+// import { stringifyConfiguration } from "../../node_modules/tslint/lib/configuration";
 var Wrapper = /** @class */ (function () {
-    function Wrapper(application_Data) {
+    function Wrapper(
+    //application_Data : IApplication_Data,
+    application_Data, initializeData) {
         // Wrapper 처리
         this.Initialize();
-        // APPLICATION Data 전달
-        this.APPLICATION_DATA = application_Data;
-        console.log(this.APPLICATION_DATA);
-        //                                                      this.InitializeActivity(this.APPLICATION_DATA);
+        // APPLICATION Data 전달하여 Locale 값을 가져온다.
+        this.APPLICATION_DATA = this.GetApplicationDataLocale(application_Data);
+        if (typeof initializeData !== undefined && initializeData !== null) {
+            this.InitializeActivity(initializeData);
+        }
+        // SessionActionData 설정
+        this.SessionActionData = new Application.SessionActionData({
+            session_id: this.APPLICATION_DATA.SESS_ID
+        });
     }
+    /**
+     * Application 데이터 생성
+     * @param application_Data
+     * @returns
+     */
+    Wrapper.prototype.GetApplicationDataLocale = function (application_Data) {
+        var applicition = null;
+        if (String.IsNullOrEmpty(application_Data.LOCALE_SET) == false) {
+            switch (application_Data.LOCALE_SET) {
+                case "koKR":
+                    applicition = new APPLICATION_CONFIG_koKR(application_Data);
+                    break;
+                default:
+                    applicition = new APPLICATION_CONFIG_koKR(application_Data);
+                    break;
+            }
+        }
+        else {
+            applicition = new APPLICATION_CONFIG_koKR(application_Data);
+        }
+        return applicition;
+    };
     Wrapper.prototype.Initialize = function () {
         // Builder 생성
         this.Builder = new XAPI.xAPIBuilder();
@@ -327,7 +382,16 @@ var Application;
                 description: null
             };
             /**
-             * 확장 유형 선언
+             * SessionData 확장
+             *  + attemp-count :: 정상적으로 로그인 하지 못한 경우 접속을 시도한 회수를 나타냄.
+             *  + attended-time :: 참석(출석)을 완료한 시점의 시간을 나타냄.
+             *  + attended-reason :: 참석(출석)시 부가적인 사유, 상태가 있을 경우를 나타냄.
+             *  + leaved-reason :: 퇴장시 부가적인 사유, 상태가 있을 경우를 나타냄.
+             *  + session-id :: 활동 주기 동안 사용된 세션 유효값
+             *  + started-time :: 활동을 시작한 시점의 시간을 나타냄.
+             *  + ended-time :: 활동이 종료된 시점의 시간을 나타냄.
+             *  + user-agent :: Software Application 을 호스팅하는 UserAgent 의 속성을 설명하는 값을 사용
+             *  + host :: Software Application 의 Host 를 식별하는 문자열 값이 속성은 Front-end 웹 응용 프로그램을 호스팅하는 Back-end 서비스 또는 도메인을 나타내는데 사용
              */
             this.extension = {
                 "attemp-count": 0,
@@ -341,6 +405,13 @@ var Application;
                 "ip-address": null,
                 "host": null
             };
+            // SessiionID 등록
+            if (typeof (SessionInfo.session_id) != undefined && SessionInfo.session_id != null) {
+                this.extension["session-id"] = SessionInfo.session_id;
+            }
+            else {
+                throw "session-id 가 등록되지 않았습니다.";
+            }
             // Agent 값 설정
             this.extension["user-agent"] = navigator.userAgent.toLowerCase();
             // Host 명 가져오기
@@ -366,13 +437,35 @@ var Application;
                 this.object.type = SessionInfo.type;
             }
         }
+        /**
+         * 정상적으로 로그인 하지 못한 경우 접속을 시도한 회수를 나타냄.
+         * @param count 숫자
+         */
         SessionActionData.prototype.SetAttempCount = function (count) {
             this.extension["attemp-count"] = count;
+        };
+        /**
+         * 접속시도 회수를 증가 시킴
+         */
+        SessionActionData.prototype.IncreaseAttempCount = function () {
+            this.extension["attemp-count"]++;
+        };
+        /**
+         * 참석(출석)을 완료한 시점의 시간을 나타냄
+         * @param date 지정할 시간
+         */
+        SessionActionData.prototype.SetAttendedTime = function (date) {
+            this.extension["attended-time"] = UTCTime(date);
         };
         return SessionActionData;
     }());
     Application.SessionActionData = SessionActionData;
 })(Application || (Application = {}));
+/**
+ * SessionDataObject 유형 정의
+ *  - software-application :: Software
+ *  - group-activity ::
+ */
 var eSessionDataObjectType;
 (function (eSessionDataObjectType) {
     eSessionDataObjectType["software-application"] = "software-application";
